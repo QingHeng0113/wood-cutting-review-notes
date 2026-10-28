@@ -1,0 +1,1185 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b4a47">
+<meta name="robots" content="noindex,nofollow">
+<title>《木材切削》复习系统 · Review &amp; Quiz</title>
+<style>
+:root{
+  --bg:#edf6f5; --paper:#fbfefd; --paper2:#eef8f6;
+  --ink:#15343a; --dim:#4e6f74; --faint:#7e9a9d;
+  --line:rgba(20,96,98,.18); --line2:rgba(20,96,98,.38);
+  --rose:#0f766e; --rose2:#0f8f86; --teal:#0e7490;
+  --red:#b3453a; --green:#1b8a5a; --amber:#2b7fa8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:linear-gradient(180deg,#f1f9f8,#e2efee);color:var(--ink);
+  font-family:"Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif;line-height:1.65}
+button{font-family:inherit;color:inherit;cursor:pointer}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,#0b4a47,#0f6b64);
+  color:#eafaf7;padding:14px 20px 0;box-shadow:0 4px 18px rgba(8,60,58,.35)}
+header h1{font-size:20px;letter-spacing:1px}
+header .sub{font-size:11.5px;color:#b9e0dc;margin-top:3px;line-height:1.5}
+nav{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+nav button{border:1px solid rgba(234,250,247,.35);background:rgba(234,250,247,.08);
+  color:#dff5f2;padding:7px 16px;border-radius:999px;font-size:13.5px;transition:.2s}
+nav button:hover{background:rgba(234,250,247,.16)}
+nav button.on{background:#e6fbf7;color:#0b4a47;font-weight:700;border-color:#e6fbf7}
+main{max-width:1080px;margin:0 auto;padding:18px 16px 90px}
+.sec{background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  padding:20px 22px;margin-top:16px;box-shadow:0 6px 18px rgba(12,70,70,.08)}
+.sec h2{font-size:19px;color:var(--rose);letter-spacing:.5px;border-bottom:2px solid rgba(15,118,110,.3);
+  padding-bottom:8px;margin-bottom:12px}
+.sec h2 .en{font-size:13px;color:var(--teal);font-weight:500;margin-left:8px}
+.sec h3{font-size:15.5px;margin:16px 0 6px;color:var(--ink)}
+.sec h3::before{content:"◤ ";color:var(--amber)}
+.sec p{margin:6px 0;font-size:13.5px}
+.sec li{margin:4px 0 4px 22px;font-size:13.5px}
+.sec ul{list-style:disc}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.toc a{text-decoration:none;font-size:12.5px;padding:5px 12px;border-radius:999px;
+  border:1px solid var(--line2);color:var(--rose);background:var(--paper2)}
+.toc a:hover{background:var(--rose);color:#eafaf7}
+.star{color:var(--rose);font-weight:700}
+.tagchip{display:inline-block;font-size:10.5px;padding:2px 9px;border-radius:999px;
+  background:rgba(15,118,110,.1);color:var(--rose);border:1px solid rgba(15,118,110,.32);margin-right:4px;vertical-align:1px}
+.en{color:var(--teal);font-size:12px}
+.formula{background:linear-gradient(90deg,rgba(31,122,104,.08),transparent);
+  border-left:3px solid var(--teal);padding:8px 14px;border-radius:0 10px 10px 0;
+  margin:8px 0;font-size:13.5px;font-family:Cambria,"Times New Roman",serif}
+.formula .zh{font-family:"Microsoft YaHei",sans-serif;font-size:12px;color:var(--dim);display:block;margin-top:3px}
+.note{background:rgba(43,127,168,.09);border-left:3px solid var(--amber);
+  padding:8px 14px;border-radius:0 10px 10px 0;margin:8px 0;font-size:13px}
+table{border-collapse:collapse;width:100%;margin:8px 0;font-size:13px}
+th,td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:rgba(15,118,110,.1);color:var(--rose);font-weight:600;white-space:nowrap}
+td.n{white-space:nowrap}
+.quizhead{position:relative;background:var(--paper);border-bottom:1px solid var(--line);
+  padding:10px 4px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.chips button{font-size:12.5px;padding:5px 13px;border-radius:999px;border:1px solid var(--line2);
+  background:var(--paper2);color:var(--dim)}
+.chips button.on{background:var(--rose);border-color:var(--rose);color:#fff6e8;font-weight:700}
+.scorebar{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--dim);align-items:center}
+.scorebar b{color:var(--rose);font-variant-numeric:tabular-nums}
+.qcard{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--line2);
+  border-radius:14px;padding:14px 16px;margin-top:12px;box-shadow:0 4px 12px rgba(12,70,70,.07)}
+.qcard.right{border-left-color:var(--green);background:#f7fbf5}
+.qcard.wrong{border-left-color:var(--red);background:#fdf6f4}
+.qcard .qt{font-size:14.5px;font-weight:600}
+.qcard .qmeta{font-size:11px;color:var(--faint);margin-top:2px;display:flex;gap:8px;flex-wrap:wrap}
+.qcard .opts{margin-top:8px}
+.qcard .opts button{display:block;width:100%;text-align:left;font-size:13.5px;padding:8px 12px;
+  border:1px solid var(--line);border-radius:10px;margin:5px 0;background:var(--paper2)}
+.qcard .opts button:hover{border-color:var(--rose)}
+.qcard .opts button.right{background:rgba(46,125,50,.14);border-color:var(--green);font-weight:700}
+.qcard .opts button.wrong{background:rgba(178,58,46,.1);border-color:var(--red);text-decoration:line-through}
+.qcard .tfrow{display:flex;gap:10px;margin-top:8px}
+.qcard .tfrow button{flex:1;padding:9px;border:1px solid var(--line2);border-radius:10px;
+  font-size:14px;background:var(--paper2)}
+.qcard .tfrow button.right{background:rgba(46,125,50,.14);border-color:var(--green);font-weight:700}
+.qcard .tfrow button.wrong{background:rgba(178,58,46,.1);border-color:var(--red)}
+.qcard input[type=text]{width:100%;padding:8px 12px;border:1px solid var(--line2);border-radius:10px;
+  font-size:14px;background:var(--paper2);margin-top:8px;font-family:inherit}
+.qcard input[type=text]:focus{outline:2px solid rgba(164,64,44,.3)}
+.qcard .slotrow{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:13.5px}
+.qcard .slotrow span{flex:none;color:var(--dim)}
+.qcard .slotrow input{margin-top:0}
+.qbtns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.qbtns button,.actbtn{font-size:12.5px;padding:6px 14px;border-radius:999px;border:1px solid var(--line2);
+  background:var(--paper2)}
+.qbtns button:hover,.actbtn:hover{border-color:var(--rose);color:var(--rose)}
+.qbtns .primary{background:var(--rose);border-color:var(--rose);color:#fff6e8}
+.exp{display:none;font-size:13px;color:var(--dim);margin-top:8px;padding:8px 12px;
+  background:var(--paper2);border-radius:10px}
+.exp.show{display:block}
+.exp b{color:var(--rose)}
+.qaction{font-size:12.5px;padding:6px 14px;border-radius:999px;border:1px solid var(--line2);background:var(--paper2)}
+.qaction.mem{background:rgba(46,125,50,.15);border-color:var(--green);color:var(--green);font-weight:700}
+.qaction.vague{background:rgba(43,127,168,.15);border-color:var(--amber);color:#1d6491}
+.qaction.lost{background:rgba(178,58,46,.12);border-color:var(--red);color:var(--red)}
+.ansbox{display:none;margin-top:10px;font-size:13.5px;padding:10px 14px;background:var(--paper2);
+  border:1px dashed var(--line2);border-radius:12px}
+.ansbox.show{display:block}
+.examhead{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0;font-size:13.5px;color:var(--dim)}
+.examhead #exam-timer{color:var(--rose);font-weight:700;font-variant-numeric:tabular-nums}
+.examgroup{margin-top:18px}
+.examgroup h3{color:var(--rose);font-size:15px;margin-bottom:8px}
+.examitem{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+.examitem .qt{font-size:14px;font-weight:600}
+.examitem .opts button{display:block;width:100%;text-align:left;font-size:13px;padding:7px 11px;border:1px solid var(--line);border-radius:9px;margin:5px 0;background:var(--paper)}
+.examitem .opts button.sel{border-color:var(--rose);background:rgba(164,64,44,.08)}
+.examitem .opts button.right{background:rgba(46,125,50,.14);border-color:var(--green);font-weight:700}
+.examitem .opts button.wrong{background:rgba(178,58,46,.1);border-color:var(--red);text-decoration:line-through}
+.examitem .tfrow{display:flex;gap:8px;margin-top:6px}
+.examitem .tfrow button{flex:1;padding:7px;border:1px solid var(--line2);border-radius:9px;background:var(--paper);font-size:13.5px}
+.examitem .tfrow button.sel{border-color:var(--rose);background:rgba(164,64,44,.08)}
+.examitem .tfrow button.right{background:rgba(46,125,50,.14);border-color:var(--green);font-weight:700}
+.examitem .tfrow button.wrong{background:rgba(178,58,46,.1);border-color:var(--red)}
+.examitem input[type=text]{width:100%;padding:7px 11px;border:1px solid var(--line2);border-radius:9px;background:var(--paper);margin-top:6px;font-family:inherit;font-size:13.5px}
+.examitem .ansbox{display:none;margin-top:8px;font-size:12.5px;padding:8px 11px;background:var(--paper);border:1px dashed var(--line2);border-radius:9px}
+.examitem .ansbox.show{display:block}
+/* ---------- 资料文件提交 ---------- */
+.fbbox{margin-top:8px}
+.fbbox textarea{width:100%;min-height:96px;padding:10px 12px;border:1px solid var(--line2);border-radius:10px;background:var(--paper2);font-family:inherit;font-size:13.5px;resize:vertical}
+.fbrow{display:flex;gap:10px;align-items:center;margin-bottom:8px;font-size:13px;color:var(--dim);flex-wrap:wrap}
+.fbrow select{padding:5px 10px;border:1px solid var(--line2);border-radius:8px;background:var(--paper2);font-family:inherit}
+.fbwall{max-height:420px;overflow:auto;margin-top:6px}
+.fbmsg{background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:6px 0;font-size:13px;white-space:pre-wrap;word-break:break-word}
+.fbmsg .fbt{font-size:11px;color:var(--faint);display:block;margin-bottom:2px}
+.paperTabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.paperTabs button{font-size:13px;padding:6px 16px;border-radius:999px;border:1px solid var(--line2);background:var(--paper2)}
+.paperTabs button.on{background:var(--rose);border-color:var(--rose);color:#fff6e8;font-weight:700}
+footer{max-width:1080px;margin:0 auto;padding:10px 16px 30px;font-size:11px;color:var(--faint)}
+@media (max-width:700px){
+  header{padding:10px 12px 0}
+  header h1{font-size:16.5px}
+  header .sub{font-size:10.5px;line-height:1.45}
+  nav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+  nav button{flex:0 0 auto;padding:6px 12px;font-size:12.5px}
+  main{padding:10px 8px 80px}
+  .sec{padding:14px 13px;border-radius:13px;margin-top:12px}
+  .sec h2{font-size:16px}
+  .sec h2 .en{font-size:11px}
+  .sec h3{font-size:14.5px}
+  .sec p,.sec li{font-size:13.5px}
+  .sec table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .sec th,.sec td{white-space:normal;font-size:12.5px;padding:5px 7px}
+  .sec td.n{white-space:nowrap}
+  .formula{font-size:13px;padding:7px 10px}
+  .qcard{padding:12px}
+  .qcard .qt{font-size:14px}
+  .scorebar{font-size:12px}
+  .toc a{font-size:12px;padding:4px 10px}
+}
+@media print{
+  header{position:static;box-shadow:none} nav{display:none}
+  body{background:#fff} main{padding:0}
+  .sec,.wrap{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+  #view-quiz,#view-exam,#view-thanks,#view-feedback{display:none!important}
+  #view-review{display:block!important}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>《木材切削》复习系统 <span style="font-size:13px;color:#e7d3b3">Wood Cutting · Review &amp; Quiz</span></h1>
+  <div class="sub">依据：课件照片 OCR 整理的考点（66 张 HEIC，含考生自标考点）｜ 课件与教材冲突时以教材为准</div>
+  <nav>
+    <button data-view="review" class="on">📖 复习资料</button>
+    <button data-view="quiz">✏️ 互动刷题</button>
+    <button data-view="exam">📝 模拟考试</button>
+    <button data-view="feedback">📎 资料提交</button>
+    <button data-view="thanks">🙏 说明</button>
+  </nav>
+</header>
+<main>
+
+<!-- =================== 复习资料 =================== -->
+<section id="view-review">
+<div class="toc">
+<a href="#r0">考点速览</a><a href="#r1">1 基本概念</a><a href="#r2">切削运动·用量</a><a href="#r3">刀具角度</a>
+<a href="#r4">切削层</a><a href="#r5">切削方向</a><a href="#r6">切削特点</a><a href="#r7">2 切屑形态</a>
+<a href="#r8">表面质量·精度</a><a href="#r9">切削热</a><a href="#r10">3 切削力</a><a href="#r11">切削阻力</a>
+<a href="#r12">4 锯与锯切</a><a href="#r13">锯齿</a><a href="#r14">带锯条</a><a href="#r15">适张处理</a>
+<a href="#r16">5 磨损与耐用度</a><a href="#r17">磨削补充</a><a href="#r18">速记清单</a>
+</div>
+
+<div class="sec" id="r0">
+<h2>考点速览与复习说明 <span class="en">Exam brief</span></h2>
+<p><span class="tagchip">来源</span>本页依据 66 张课件照片 OCR 整理，<b>【考点】标记</b>来自原文件名里考生自己的标注，是复习优先级最高的内容。</p>
+<p><span class="tagchip">建议题型</span>按考点标注推测：<b>判断 → 选择 → 填空（公式与术语）→ 简答（含画图：三向切削、切屑类型、纵/横锯齿切削）</b>。本页刷题按此四类训练。</p>
+<p><span class="tagchip">高频</span><span class="star">★</span>切削三要素、切削用量三要素 · <span class="star">★</span>四个基本角度与 γ+α+β=90° · <span class="star">★</span>纵/横/端向切削定义（会画图） · <span class="star">★</span>纤维倾角 0~90°顺纹 · <span class="star">★</span>切屑类型判别（流线型/剪切型/撕裂型）· <span class="star">★</span>超前劈裂 · <span class="star">★</span>切削力组成与临界切削角 · <span class="star">★</span>切削阻力影响因素（含水率 10% 最大）· <span class="star">★</span>纵/横锯齿切削过程 · <span class="star">★</span>带锯条六应力与跑锯 · <span class="star">★</span>三种辊压方法 · <span class="star">★</span>刀具磨损与耐用度。</p>
+<div class="note"><b>教材章节对照：</b>课件按「第 1 章 基本概念 → 第 2 章 切屑形态与表面质量 → 第 3 章 切削力与切削阻力 → 第 4 章 锯与锯切 → 第 8 章 刀具材料（磨损与耐用度）」组织，另有磨削加工补充页。编号与课件一致。</div>
+</div>
+
+<div class="sec" id="r1">
+<h2>第 1 章 木材切削的基本概念 <span class="en">Basic concepts</span></h2>
+<h3>切削与木材切削的定义</h3>
+<p><b>切削 cutting</b>：刀具相对工件按预定轨迹运动，切除一部分工件材料或使之分离，使加工部位或工件获得一定精度之尺寸、形状、表面质量。</p>
+<p><b>木材切削 wood cutting</b>：借助刀具，按预定的表面，切开工件上木材之间的联系，从而获得符合要求尺寸、形状和表面粗糙度的制品，这种工艺过程称为木材切削。</p>
+<h3>切削三要素 <span class="tagchip">考点</span></h3>
+<p><b>机床 Machine、刀具 Tools、工件 Workpiece</b> 三者构成三角形关系：机床提供动力和运动、夹持刀具和工件；刀具是切削工具；工件是加工对象。</p>
+</div>
+
+<div class="sec" id="r2">
+<h2>切削运动与切削用量 <span class="en">Cutting motion &amp; parameters</span></h2>
+<h3>主运动与切削运动</h3>
+<p><b>主运动 primary motion</b>：从工件上切除切屑、形成新表面所需要的最基本运动。</p>
+<div class="formula">v = πDn / (6×10⁴) <span class="zh">D—刀具（或主锯轮）直径 mm；n—转速 r/min；v—m/s</span></div>
+<p><b>切削运动 cutting motion</b>：主运动与进给运动同时进行时产生的相对运动，<b>V' = V + U（矢量和）</b>。一般主运动速度远大于进给速度，常用主运动速度的大小方向代表切削运动速度。</p>
+<p>常见运动组合：一个直线运动（刨削、刮削）；两个直线运动（带锯、排锯）；一个回转 + 一个直线（铣削、钻削）；两个回转运动（仿型铣削）。</p>
+<h3>切削用量三要素 <span class="tagchip">考点</span></h3>
+<ul>
+<li><b>切削速度 V</b>：常以主运动速度表示；</li>
+<li><b>进给量 f</b>：每齿进给量 fz 或每转进给量 f；</li>
+<li><b>背吃刀量 as（切削深度 h）</b>：待加工表面与已加工表面之间的距离。</li>
+</ul>
+<div class="note">其大小表明切削强度高低，影响生产率、加工质量、动力消耗和刀具磨损。任何切削机床设计都必须首先确定切削用量；任何切削作业都必须先设定切削用量。</div>
+</div>
+
+<div class="sec" id="r3">
+<h2>刀具几何角度 <span class="en">Tool geometry</span></h2>
+<h3>刀具的几何表面与切削刃</h3>
+<p>刀具切削部分简化为一楔形体：<b>前刀面</b>（切屑流过的表面）、<b>后刀面</b>（与加工表面相对的表面）、<b>侧面</b>（与前面、后面相邻的面）；<b>主刃</b>＝前面与后面的交线，<b>侧刃</b>＝前面与侧面的交线。</p>
+<h3>坐标平面与测量平面</h3>
+<ul>
+<li><b>切削平面 cutting plane</b>：通过切削刃与加工表面相切的平面；即主运动速度与切削刃组成的平面。主运动为直线且切削刃为直线时与已加工表面重合；回转运动时位置随刃口位置改变。</li>
+<li><b>基面</b>：通过主切削刃上某一点并与该点切削速度方向相垂直的平面。</li>
+<li><b>正交平面（法向剖面）</b>：通过主切削刃上某一点并与主切削刃在基面上投影相垂直的平面。</li>
+</ul>
+<h3>四个基本角度 <span class="tagchip">考点</span></h3>
+<ul>
+<li><b>前角 γ rake angle</b>：在正交平面（法向剖面）内度量的前刀面与基面间夹角；</li>
+<li><b>后角 α clearance angle</b>：法向剖面内度量的刀齿后面与切削平面间夹角；</li>
+<li><b>楔角 β sharpness angle</b>：前、后刀面之夹角；</li>
+<li><b>切削角 δ cutting angle</b>：前刀面与切削平面之夹角。</li>
+</ul>
+<div class="formula">γ + α + β = 90°　；　δ = α + β　；　δ + γ = 90°</div>
+<h3>工作角度 ≠ 标注角度</h3>
+<p>实际切削中刀具角度因切削运动、刃安装高度、磨损等而改变。因进给运动存在，相对运动速度与主运动间有夹角 <b>αm = arctan(U/V)</b>，切削平面旋转 αm，<b>工作后角 αw = α − αm</b>。αm 远小于 1°，通常用标注后角代替工作后角；仅当主运动与进给速度相差较小时才需考虑工作角度。</p>
+</div>
+
+<div class="sec" id="r4">
+<h2>切削层尺寸参数 <span class="en">Chip geometry</span></h2>
+<h3>切削层与切削厚度 <span class="tagchip">考点</span></h3>
+<p><b>切削层</b>：刀具相对工件沿进给方向每移动一个每齿进给量 Uz（或每转进给量 Un、每双行程进给量 Ustr）后，一个刀齿正切削的木材层。</p>
+<p><b>切削厚度 a</b>：相邻两切削轨迹间的垂直距离。主运动为直线运动时为常数；回转运动时在切削过程中变化：</p>
+<div class="formula">a = Uz · sin(θ) <span class="zh">θ—运动遇角，即切削速度与进给速度间的夹角</span></div>
+<h3>切削深度、宽度与面积</h3>
+<ul>
+<li>切削深度 <b>h</b>：已加工表面与待加工表面间的垂直距离；</li>
+<li>切削宽度 <b>b</b>：刀刃与工件间的接触长度；</li>
+<li>切削面积 <b>A = a·b</b>（mm²）；回转运动时随切削厚度变化。</li>
+</ul>
+</div>
+
+<div class="sec" id="r5">
+<h2>切削方向 <span class="en">Cutting directions</span> <span class="tagchip">重点考点</span></h2>
+<h3>二维切削与三维切削 <span class="tagchip">考点</span></h3>
+<ul>
+<li><b>二维切削</b>：直角自由切削——仅一个垂直于切削速度方向的刀刃参与切削，刀刃与切削方向垂直，切屑在横向无变形；</li>
+<li><b>三维切削</b>：刀刃与切削方向存在倾斜角，切屑在垂直于切削方向上有变形。</li>
+</ul>
+<p>按切削速度方向与纤维方向的关系分：<b>三个基本方向</b>（纵向、横向、端向）＋<b>三个过渡方向</b>（纵端向、纵横向、横端向）。</p>
+<h3>三向切削的定义 <span class="tagchip">考点·会画图</span></h3>
+<table>
+<tr><th>名称</th><th>代号</th><th>定义</th></tr>
+<tr><td class="n">纵向切削</td><td class="n">[90-0]</td><td>刀刃与木材纤维方向垂直，切削速度平行于纤维方向</td></tr>
+<tr><td class="n">横向切削</td><td class="n">[0-90]</td><td>刀刃与纤维方向平行，切削速度垂直于纤维方向</td></tr>
+<tr><td class="n">端向切削</td><td class="n">[90-90]</td><td>刀刃和切削速度均与纤维方向垂直</td></tr>
+</table>
+<h3>三个角度：纤维倾角、纤维交角、年轮接触角 <span class="tagchip">考点</span></h3>
+<ul>
+<li><b>纤维倾角（动力遇角）φ</b>：平行于切削方向且垂直于切削平面的平面内，切削方向与纤维方向的夹角；</li>
+<li><b>纤维交角</b>：切削平面内，切削方向与纤维方向的夹角；</li>
+<li><b>年轮接触角</b>：垂直于切削方向和切削平面的平面内，切削平面与年轮切线间的夹角。</li>
+</ul>
+<div class="note"><b>顺逆纹分界：</b>纤维倾角 <b>0~90° 为顺纹切削</b>，<b>90~180° 为逆纹切削</b>；<b>纤维交角为 90° 时即横向切削</b>。</div>
+</div>
+
+<div class="sec" id="r6">
+<h2>木材切削的特点 <span class="en">Characteristics</span></h2>
+<h3>各向异性 <span class="tagchip">考点</span></h3>
+<p><b>木材的特点</b>：各向异性、不均匀性、强度低；易变形、压缩、开裂、起毛；不耐热，易焦化或炭化。</p>
+<p><b>影响切削的木材特性</b>：含水率、密度、强度、组织结构、切削方向、温度。</p>
+<h3>高速切削与楔角 <span class="tagchip">考点</span></h3>
+<ul>
+<li>切削速度 <b>40~70 m/s</b>，最高 <b>120 m/s</b>；刀轴转速 3000~12000 r/min，最高 24000 r/min，可获得较高几何精度和表面粗糙度；</li>
+<li>温度高（<b>500℃</b> 左右甚至更高）；噪声很大需降噪；高速回转部件需静、动平衡；机床需抗振性好；刀具材料与结构需适应高速切削。</li>
+<li><b>刀具楔角小</b>：木材强度低、易变形，分离木材所需力占比大；楔角小、刀具锐利，利于切屑与工件分离。</li>
+<li>切屑可能也是加工产品。</li>
+</ul>
+</div>
+
+<div class="sec" id="r7">
+<h2>第 2 章 切屑形态 <span class="en">Chip types</span></h2>
+<p>木材切削层在刀具作用下发生剪切、挤压、弯折等变形而与工件分离形成切屑。</p>
+<table>
+<tr><th>切削方向</th><th>切屑类型</th><th>别名/特征</th></tr>
+<tr><td class="n">纵向</td><td class="n">纵Ⅰ型</td><td>屑瓣间界线有时分明（多角形），有时不清（螺旋状）＝<b>折断型</b></td></tr>
+<tr><td class="n">纵向</td><td class="n">纵Ⅱ型</td><td>光滑螺旋型＝<b>流线型</b></td></tr>
+<tr><td class="n">纵向</td><td class="n">纵Ⅲ型</td><td>压碎、皱折＝<b>压缩型</b></td></tr>
+<tr><td class="n">横向</td><td class="n">横Ⅰ型</td><td>屑瓣间界线清晰，屑瓣稀松相连</td></tr>
+<tr><td class="n">横向</td><td class="n">横Ⅲ型</td><td>屑瓣间界线不明</td></tr>
+<tr><td class="n">横向</td><td class="n">横Ⅰ-Ⅲ过渡型</td><td>—</td></tr>
+<tr><td class="n">端向</td><td class="n">端Ⅰ型</td><td><b>剪切型</b></td></tr>
+<tr><td class="n">端向</td><td class="n">端Ⅱ型</td><td><b>撕裂型</b></td></tr>
+</table>
+<h3>流线型切屑（纵Ⅱ型）<span class="tagchip">考点</span></h3>
+<p><b>条件</b>：纵向切削时切削角和切削深度较小。<b>过程</b>：刀具切入时 Fy 较小、切削层薄、无劈裂，切削层在前刀面推挤下连续剪切破坏，生成连续带状屑片。<b>特点</b>：①切削力稳定、无明显周期；②切屑连续带状、切削质量好；③功耗大、刀刃磨损快。</p>
+<h3>剪切型切屑（端Ⅰ型）</h3>
+<p><b>条件</b>：纤维倾角较大时的顺纹切削（纵-端向切削）。<b>过程</b>：刃口切入，前刀面木材被压缩，受平行纤维方向的剪切力发生剪切滑移，随刃口前移压缩-剪切滑移以一定间隔断续发生。<b>特点</b>：切屑较连续、切削力均匀、质量较高。</p>
+<h3>撕裂型切屑（端Ⅱ型）<span class="tagchip">考点</span></h3>
+<p><b>条件</b>：刃口不锐利的端向切削，或逆纹纵向切削，切削角和切削深度较大。<b>过程</b>：刃口前移给纤维横向拉力，刃口下方木材沿纤维方向开裂；同时前刀面压缩切削层使其弯曲或剪切破坏。<b>特点</b>：<b>切削质量差、切屑无规则、切削力变化较大</b>。</p>
+<h3>超前劈裂 <span class="tagchip">考点</span></h3>
+<p>顺纹切削超前劈裂小 → <b>加工面光洁</b>；逆纹切削超前劈裂大 → <b>加工面粗糙</b>。</p>
+</div>
+
+<div class="sec" id="r8">
+<h2>切削表面质量与加工精度 <span class="en">Surface quality</span></h2>
+<h3>表面质量评价与缺陷原因 <span class="tagchip">考点</span></h3>
+<p><b>评价方法</b>：①良好面百分率；②缺陷种类及频率；③表面粗糙度（常用，粗糙度仪测量）；④实际生产多用肉眼判定。</p>
+<p><b>缺陷产生原因</b>：①加工机械与刀具设计本身不合理；②机械、刀具调整不当、参数不合理、磨损；③材料纹理结构、材质不均。</p>
+<h3>改进横向切削质量的措施 <span class="tagchip">考点</span></h3>
+<ol>
+<li><b>蒸煮木材</b>：软化并增加韧性，减少开裂；</li>
+<li><b>刃前加压尺</b>：防止超前开裂，并挤出一部分水分（减少干燥时间和动力消耗）；</li>
+<li><b>加大刃倾角</b>：改横向切削为纵横向切削。</li>
+</ol>
+<h3>加工精度 <span class="tagchip">考点</span></h3>
+<p><b>尺寸精度</b>：实际加工尺寸与预定目标尺寸的符合程度；<b>形位精度</b>：实际形状、位置与预定目标形位的符合程度。</p>
+<p><b>影响因素</b>：①加工机械精度（调整、结构、振动）；②刀具性能（材质、刚度、磨损、刃口缺损）；③加工参数（刀具参数、切削参数）；④木材材性（切削性质、密度、内应力、力学性能）。</p>
+</div>
+
+<div class="sec" id="r9">
+<h2>切削热与刀具温度 <span class="en">Cutting heat</span></h2>
+<h3>刀具升温的后果与热传导</h3>
+<p>刃口温度上升加速磨损；刀体温度分布不均使刀具丧失稳定性；已加工表面炭化、焦化。热传导：刀齿与工件接触摩擦生热 → 齿尖升温并向刀体传导 → 向环境辐射散热。车削、钻削为连续切削；铣削、锯切为断续切削。</p>
+<h3>刀具温度的影响因素</h3>
+<ul>
+<li>刀具材料：导热系数、前后刀面粗糙度、材料种类与质地；</li>
+<li>刀具参数：切削角（楔角）、后角、锐利程度（刃圆半径）；</li>
+<li>切削参数：切削速度、切削厚度；</li>
+<li>切削方式（封闭、半封闭、自由；参与切削刃口数）；</li>
+<li>周围环境（气温、风速）。</li>
+</ul>
+<h3>工件切削面温度</h3>
+<p>刀刃温度可达 <b>500℃</b>，甚至 <b>1000℃ 以上</b>；切屑和已加工面也接近刀刃温度。工件温度随切削速度增加而升高；<b>切削力随温度升高而降低</b>。木材易热分解；切削慢或停止进给时灼烧，降低表面质量并缩短刀具寿命。</p>
+</div>
+
+<div class="sec" id="r10">
+<h2>第 3 章 切削力与切削应力 <span class="en">Cutting forces</span></h2>
+<h3>切削力与切削阻力 <span class="tagchip">考点</span></h3>
+<p><b>切削应变</b>：切削层木材、切屑和切削平面以下木材在刀具作用下发生弹性、塑性变形的结果。</p>
+<p><b>切削力</b>：对被切削工件而言，是将切削层木材从工件上分离并排出所需的作用力；<b>切削阻力</b>：对刀具而言，是切削力的反作用力。</p>
+<h3>切削应力分布（9 种）</h3>
+<ol>
+<li>刃口处集中应力；2. 前刀面摩擦应力；3. 切屑弯曲压应力；4. 切屑弯曲拉应力；5. 切削方向压/拉应力；6. 垂直于切削方向的剪应力；7. 大切削角时的压缩剪应力；8. 端向切削时木纤维弯曲应力；9. 端向切削时作用于木纤维的拉应力。</li>
+</ol>
+<h3>主切削力、法向力与临界切削角 <span class="tagchip">考点</span></h3>
+<ul>
+<li><b>主切削力 Fyx</b>：通常为正值，与 δ 大小无关；</li>
+<li><b>法向力 Fyy</b>：δ 较小为正（前刀面推压切屑使其分离弯曲）；δ 较大为负（切屑挤压刀具压向切削表面）；Fyy 正负还受刃圆半径影响；</li>
+<li><b>临界切削角</b>：法向力 Fyy = 0 时的切削角。</li>
+<li><b>斜刃切削</b>（λ≠0）：多一个横向分力 <b>Fyz</b>；<b>Fyx 比 Fyy、Fyz 大得多，后两者约为主切削力的 1/3</b>。</li>
+</ul>
+</div>
+
+<div class="sec" id="r11">
+<h2>切削阻力 <span class="en">Cutting resistance</span> <span class="tagchip">考点</span></h2>
+<p>切削力反作用力＝切削阻力；切削阻力容易测得，是评价材料切削性能的基础。</p>
+<h3>影响因素三组</h3>
+<p>①被切削工件性质（树种、密度、含水率、温度、力学性能）；②刀具参数（切削角、后角、刃倾角）；③切削条件（切削深度、切削方向、切削速度）。</p>
+<h3>工件性质的影响</h3>
+<ul>
+<li><b>密度</b>：随密度增大切削阻力线性增加，<b>端向增加更明显</b>；</li>
+<li><b>含水率</b>：随含水率降低，切削阻力在纤维饱和点后增加，<b>约 10% 时最大</b>，低于 10% 变化不明显或略降；</li>
+<li><b>温度</b>：随温度升高呈下降趋势；<b>力学强度</b>越高阻力越大。</li>
+</ul>
+<h3>刀具参数的影响</h3>
+<ul>
+<li><b>切削角</b>：随 δ 增大，纵向切屑由流线型→折断型→压缩型，端向由剪切型→撕裂型，阻力增加；</li>
+<li><b>刃倾角</b>（0~60°）：端向水平分力基本不变（略降）；纵向阻力降低；横向先降后升。</li>
+</ul>
+<h3>切削深度的影响</h3>
+<p>深度增加 → 截面积增大 → 切屑由折断型向压缩型变化 → 阻力增大；此时增大切削角阻力增加更显著（试验：糖松，含水率 8%，切削宽度 6.4 mm）。</p>
+</div>
+
+<div class="sec" id="r12">
+<h2>第 4 章 锯与锯切加工 <span class="en">Sawing</span></h2>
+<h3>锯切定义与锯子种类 <span class="tagchip">考点</span></h3>
+<p><b>锯切</b>：利用锯子截断、剖分工件的过程。锯子种类：无端带形（带锯条）、条形（框锯）、圆形（圆锯片）；由<b>锯齿</b>和<b>锯身</b>组成。</p>
+<h3>纵锯齿的切削过程 <span class="tagchip">考点</span></h3>
+<p>进给方向平行于纤维方向（剖料）。三个刃口（主刃端向切削 + 侧刃横向切削）每行程完成三个切削面：锯路底 + 两侧锯路壁。</p>
+<p><b>过程</b>：主刃先端向切削切断锯路底纤维；前齿面使切断木材剪切破坏；侧刃清理锯路壁；锯屑暂存齿室，锯齿离开木材时排出。</p>
+<div class="note"><b>δ 的影响：</b>δ &lt; 90° 先切底、后裂壁；δ &gt; 90° 先切壁、后切底。</div>
+<h3>横锯齿的切削过程 <span class="tagchip">考点</span></h3>
+<p>进给方向（锯路方向）垂直于纤维平面；选用 <b>δ &gt; 90°</b> 的斜磨拨料锯。锯齿如小刀切出刀痕，相邻锯齿先后切出两条平行刀痕；前齿面合力在垂直锯路方向的分力 F3 挤压两侧已切开木材，使其沿锯路底顺纤维方向剪切破坏形成锯屑（剪应力超过顺纹抗剪极限）。</p>
+<p><b>侧刃作近于端向切削；主刃作横端向切削；侧刃担负主要切削任务。</b></p>
+</div>
+
+<div class="sec" id="r13">
+<h2>锯齿的种类与构形 <span class="en">Saw teeth</span></h2>
+<h3>锯齿分类与参数 <span class="tagchip">考点</span></h3>
+<p>按锯切相对纤维方向：<b>纵剖齿、横截齿</b>；按刃磨方式：<b>直磨齿、斜磨齿</b>。主要尺寸：齿距 t、齿高 h；主要角度：前角 γ、后角 α、楔角 β；<b>锯料</b>：锯料宽 B、锯料角 λ。纵剖直磨齿为正前角，横截斜磨齿为负前角；锯料分拨料与压料。</p>
+<h3>圆锯片齿形参数表 <span class="tagchip">考点</span></h3>
+<p><b>木材加工圆锯片：</b></p>
+<table>
+<tr><th>齿名</th><th>直背齿</th><th>截背齿</th><th>截背斜磨齿</th><th>曲背齿</th></tr>
+<tr><td>用途</td><td>锯边</td><td>粗锯</td><td>再锯</td><td>粗锯</td></tr>
+<tr><td>齿喉角 γ</td><td>20~26°</td><td>30~35°（硬材取最小值）</td><td>25°</td><td>30~35°</td></tr>
+<tr><td>齿尖角 β</td><td>40~42°</td><td>40~45°</td><td>45°</td><td>40~45°</td></tr>
+</table>
+<p><b>人造板加工圆锯片：</b></p>
+<table>
+<tr><th>齿名</th><th>直背齿</th><th>截背齿</th><th>曲背齿</th></tr>
+<tr><td>用途</td><td>单板整修、刨花板铺装锯切、纤维板锯边</td><td>木质层积塑料锯切</td><td>硬材单板整修锯切</td></tr>
+<tr><td>齿喉角 γ</td><td>10~20°（锯纤维板取小值）</td><td>0~10°</td><td>20~30°</td></tr>
+<tr><td>齿尖角 β</td><td>40~50°</td><td>45~55°</td><td>40~55°</td></tr>
+</table>
+</div>
+
+<div class="sec" id="r14">
+<h2>带锯条 <span class="en">Band saw blade</span></h2>
+<h3>带锯锯切定义 <span class="tagchip">考点</span></h3>
+<p><b>带锯锯切</b>：带锯机是以封闭无端的带锯条张紧在回转的两个锯轮上，使其沿一个方向连续匀速运动，从而实现锯切木材的机床。</p>
+<h3>带锯齿形 <span class="tagchip">考点</span></h3>
+<ul>
+<li><b>直背齿</b>：锐度、强度、排屑能力均要求中等的场合；</li>
+<li><b>曲背齿</b>：后齿背弧形凸起，抗弯强度高；但锐度小、排屑不易、后角小；<b>适宜粗加工和大带锯剖料</b>；</li>
+<li><b>凹背齿</b>：齿尖锐利、排屑好；强度低；<b>适宜锯切较软的木材</b>。</li>
+</ul>
+<p>其他齿形：截背齿、浅矮齿、长矮齿、双斜齿。</p>
+<h3>锯齿尺寸与角度</h3>
+<p>齿距 t 根据 s、树种、锯料定；齿高 h 根据 s、树种定；角度参数顺序 <b>β → α → γ</b>。</p>
+<table>
+<tr><th>材种</th><th>楔角 β</th><th>后角 α</th><th>前角 γ</th></tr>
+<tr><td class="n">硬材</td><td>45~55°</td><td>15~25°</td><td>15~25°</td></tr>
+<tr><td class="n">软材</td><td>35~45°</td><td>15~25°</td><td>25~35°</td></tr>
+</table>
+<p><b>齿室</b>：形状应保证锯屑畅行；前齿面、齿腹、齿底、后齿面交接处平滑；<b>齿底圆弧半径 R ≈ 0.15t</b>；齿室容积等于或略大于齿体体积。</p>
+<h3>带锯条受力（6 种应力）<span class="tagchip">考点</span></h3>
+<ol>
+<li><b>张紧应力 σ₁</b>：σ₁ = F / [(B−h)·s]（MPa）；</li>
+<li><b>弯曲应力 σw</b>：σw = E·s / [(1−μ²)·D]（MPa）；</li>
+<li><b>切削应力</b>：锯齿侧压应力、锯背拉应力；一般工作载荷锯齿侧 12 MPa、锯背 14 MPa；重载 15 / 18 MPa；</li>
+<li><b>锯轮前倾应力</b>：约 5 MPa；</li>
+<li><b>热应力 σt</b>：σt = E·α / (ti − t)（MPa）；</li>
+<li><b>离心应力 σc</b>：σc = ρv² / g（MPa）。</li>
+</ol>
+<div class="note"><b>叠加结果：</b>有齿边反而不如锯背拉得紧，对锯切不利。因此需用滚压适张，事先给锯条预应力，抵消切削热、锯轮倾斜、切削力等造成的负效应。</div>
+<h3>张紧与跑锯 <span class="tagchip">考点</span></h3>
+<p><b>关键</b>：锯齿侧锯身部分在锯切中要张得足够紧。</p>
+<p><b>跑锯原因</b>：①锯齿部分抵抗进给力的能力总比锯身中部弱；②锯切中锯齿部分发热伸长大于其他部分，张紧力降低；③应力叠加后锯齿侧松弛、锯背应力大。</p>
+<p><b>解决办法</b>：①增大张紧力（受抗拉强度限制）；②加厚锯齿部分（制造使用有问题）；③<b>使锯条预先获得适当张紧度（适张度）</b>。</p>
+</div>
+
+<div class="sec" id="r15">
+<h2>带锯条的适张处理 <span class="en">Tensioning</span> <span class="tagchip">考点</span></h2>
+<p>解决锯齿工作稳定性最常用、最经济、最行之有效的方法：<b>辊压锯身</b>。辊压在锯身内引入预应力，使锯齿侧预先具有适当张紧度；辊压是辊子压力下锯身产生弹性变形和塑性变形的过程。</p>
+<h3>三种辊压方法对比 <span class="tagchip">考点·哪种最好</span></h3>
+<ol>
+<li><b>辊弯势法</b>：最大辊压力在锯背，锯背塑性变形最大；但张紧后锯齿部分增大的预张应力仍不足以补偿其应力下降；</li>
+<li><b>辊圆势法</b>：锯身中部施加大辊压力，张紧后两侧张紧应力大于中部；锯齿部分预张应力仍不足；</li>
+<li><b>辊弯势 + 圆势法（最好）</b>：中部和背部同时重压，使锯齿侧适张应力最小；张紧后锯齿部分张紧应力足够大，弥补应力下降。</li>
+</ol>
+<p>辊压后锯背部分或中部长度比锯齿侧大；张紧后达到 <b>“齿紧、腰松、背弓”</b>。</p>
+</div>
+
+<div class="sec" id="r16">
+<h2>第 8 章 刀具磨损与耐用度 <span class="en">Tool wear</span></h2>
+<h3>磨损分类与正常磨损特点 <span class="tagchip">考点</span></h3>
+<p><b>刀具磨损</b>：切削时刀具材料逐渐损失，刀具形状相对原始形状的变化。</p>
+<ul>
+<li><b>异常磨损</b>：刀尖折断、崩刃、刃部塑性变形、卷刃、掉齿 → 不合格产品；</li>
+<li><b>正常磨损</b>：切削部分材料逐渐损耗，微观几何形状变化。特点：①前后刀面同时磨损，前刀面可能出现月牙洼；②<b>以后刀面磨损为主</b>，磨损量大于前刀面，刃口呈圆弧形，<b>钝圆半径逐渐增大</b>。</li>
+</ul>
+<h3>磨损原因</h3>
+<ul>
+<li><b>机械磨损</b>：材料迁移、擦伤；</li>
+<li><b>热磨损</b>：成分扩散变劣；前面与切屑粘结；热应力龟裂、表层脱落；冷热变化热疲劳；切削热与阻力引起塑性变形钝化；</li>
+<li><b>化学磨损</b>：刀具材料与木材成分反应；硬质合金 Co、WC、TiC 高温氧化生成疏松氧化物被擦伤带走；</li>
+<li><b>电化学磨损、电腐蚀磨损</b>：电化学反应；电火花放电（适当施加负电荷可减小磨损）。</li>
+</ul>
+<h3>影响耐用度的因素 <span class="tagchip">考点</span></h3>
+<ul>
+<li>被切削材料：<b>端向切削比纵向、横向更易使刃口变钝</b>；内含物、pH 值影响明显；<b>三聚氰胺对刃口磨损最严重</b>；砂质、硅含量提高 → 耐用度下降；</li>
+<li>加工条件：<b>切削速度 V↑、进给速度 Vf↑、切削深度 as↑ → 耐用度下降</b>。</li>
+</ul>
+<h3>刀具耐磨损技术</h3>
+<ol>
+<li>表面热处理：淬火 + 回火提高表面硬度；</li>
+<li>表面渗碳、渗氮、渗硼，提高耐磨耐腐蚀性；</li>
+<li>表面镀铬：保护刀体、降低摩擦系数；</li>
+<li>热喷涂：喷涂金属、合金、金属陶瓷、氧化物、碳化物；</li>
+<li>涂层技术：CVD、PVD、PECVD 镀涂 TiN、TiC 等，适用于硬质合金刀齿。</li>
+</ol>
+</div>
+
+<div class="sec" id="r17">
+<h2>磨削加工特点（补充） <span class="en">Grinding</span></h2>
+<ol>
+<li>每个磨粒的切削刃极不规则；</li>
+<li>磨粒在磨具表面分布很不规则，切削量很不均匀；</li>
+<li>磨削表面发热、温度很高；</li>
+<li>磨削所需的切削能量大。</li>
+</ol>
+</div>
+
+<div class="sec" id="r18">
+<h2>高频考点速记清单 <span class="en">Quick recall</span></h2>
+<table>
+<tr><th>考点关键词</th><th>核心答案要点</th></tr>
+<tr><td class="n">切削表面缺陷原因</td><td>评价 4 条；原因 3 条（机械刀具设计 / 调整磨损 / 材料不均）</td></tr>
+<tr><td class="n">超前劈裂</td><td>顺纹→光洁；逆纹→粗糙</td></tr>
+<tr><td class="n">锯齿构形/参数</td><td>纵剖齿/横截齿；直磨/斜磨；齿距 t、齿高 h；γ、α、β；锯料宽 B、锯料角 λ</td></tr>
+<tr><td class="n">改进横向切削质量</td><td>①蒸煮软化增韧；②刃前加压尺防超前开裂挤水；③加大刃倾角改横向为纵横向</td></tr>
+<tr><td class="n">横锯齿方向</td><td>进给垂直纤维平面；δ&gt;90°；沿纤维平面剪切破坏超顺纹抗剪极限</td></tr>
+<tr><td class="n">木材切削特点</td><td>顺纹 0~90°、逆纹 90~180°、横向 90°；各向异性/不均/强度低；影响因素含水率/密度/强度/结构/方向/温度</td></tr>
+<tr><td class="n">刀具磨损分类</td><td>异常（崩刃等不合格）vs 正常（以后刀面为主，钝圆半径增大）</td></tr>
+<tr><td class="n">切削层厚度公式</td><td>a = Uz·sinθ（θ 运动遇角）</td></tr>
+<tr><td class="n">纵锯齿切削过程</td><td>主刃端向切底→前齿面剪切→侧刃清壁→锯屑存齿室再排出</td></tr>
+<tr><td class="n">流线型切屑</td><td>纵Ⅱ型；条件：切削角和深度小；力稳定、质量好、功耗大磨损快</td></tr>
+<tr><td class="n">纵剖锯齿参数表</td><td>直背/截背/截背斜磨/曲背齿的用途与 γ、β</td></tr>
+<tr><td class="n">纵/横/端向定义</td><td>纵向[90-0]、横向[0-90]、端向[90-90]</td></tr>
+<tr><td class="n">纵锯先切底还是壁</td><td>δ&lt;90°先切底后裂壁；δ&gt;90°先切壁后切底</td></tr>
+<tr><td class="n">二维/三维切削</td><td>二维=直角自由切削；三维=刀刃倾斜，横向有变形</td></tr>
+<tr><td class="n">撕裂型切屑</td><td>端Ⅱ；刃口钝/逆纹/角深大；质量差、力变化大</td></tr>
+<tr><td class="n">带锯定义</td><td>封闭无端带锯条张紧在两锯轮上连续匀速运动锯切</td></tr>
+<tr><td class="n">三种辊压法</td><td>辊弯势+圆势联合法最好（中部和背部同时重压）</td></tr>
+<tr><td class="n">刀具耐用度影响因素</td><td>端向最钝；三聚氰胺磨损最重；V/Vf/as↑ 耐用度↓</td></tr>
+<tr><td class="n">切削阻力概念</td><td>切削力反作用力；影响因素：工件性质/刀具参数/切削条件</td></tr>
+<tr><td class="n">带锯齿形</td><td>直背中等；曲背抗弯高适宜粗加工大带锯；凹背锐利排屑好适宜软材</td></tr>
+<tr><td class="n">刃倾角影响</td><td>端向基本不变；纵向阻力降；横向先降后升</td></tr>
+<tr><td class="n">三个角定义</td><td>纤维倾角（动力遇角）/纤维交角/年轮接触角</td></tr>
+<tr><td class="n">高速切削/楔角</td><td>v=40~70 m/s 最高 120；温度 500℃；楔角小利于分离</td></tr>
+<tr><td class="n">加工精度影响因素</td><td>尺寸精度/形位精度；机床精度/刀具性能/加工参数/木材材性</td></tr>
+<tr><td class="n">切削力占比</td><td>主切削力最大；法向力、轴向力约为主切削力 1/3</td></tr>
+<tr><td class="n">带锯张紧/跑锯</td><td>跑锯原因：锯齿侧应力小；解决：适张度</td></tr>
+<tr><td class="n">木材切削定义</td><td>见第 1 章</td></tr>
+<tr><td class="n">锯切定义与种类</td><td>锯切=截断剖分；带锯条/框锯/圆锯片；锯齿+锯身</td></tr>
+</table>
+</div>
+</section>
+
+<!-- =================== 互动刷题 =================== -->
+<section id="view-quiz" hidden>
+<div class="quizhead">
+  <div class="scorebar">
+    <span>客观题答对：<b id="sc-obj">0</b>/<span id="sc-obj-total">0</span></span>
+    <span>已掌握卡片：<b id="sc-term">0</b>/<span id="sc-term-total">0</span></span>
+    <span style="flex:1"></span>
+    <button class="actbtn" id="btn-shuffle">🔀 乱序重刷</button>
+    <button class="actbtn" id="btn-reset">♻️ 清空进度</button>
+  </div>
+  <div class="chips" id="chips"></div>
+</div>
+<div id="quiz-list"></div>
+</section>
+
+<!-- =================== 模拟考试 =================== -->
+<section id="view-exam" hidden>
+<div class="paperTabs" id="exam-tabs"></div>
+<div class="examhead">
+  <span>⏱ 剩余时间：<span id="exam-timer">--:--</span></span>
+  <button class="qbtns primary" id="exam-start" style="padding:6px 16px;border-radius:999px">开始考试</button>
+  <button class="qbtns primary" id="exam-submit" style="padding:6px 16px;border-radius:999px">交卷</button>
+  <span id="exam-score" style="font-weight:700;color:var(--rose)"></span>
+</div>
+<div id="exam-body"></div>
+</section>
+
+<!-- =================== 说明 =================== -->
+<section id="view-thanks" hidden>
+<div class="sec">
+<h2>使用说明与来源 <span class="en">About</span></h2>
+<p>本页由课件照片 OCR 整理稿（66 张 HEIC，《木材切削》课程 PPT）转写而成，内容按教材章节重组；原文件名即考生自标的考点提示，故优先收入。高度概括的表述可能存在 OCR 误差，<b>数字、公式与术语以教材和老师课件为准</b>。</p>
+<p>刷题进度保存在本机浏览器（localStorage），换设备或清缓存会丢失；「已掌握」按卡片自评记录。</p>
+<p>模拟卷为按考点整理的练习卷，非真实考题，题型与分值仅作训练参考。</p>
+</div>
+</section>
+
+<!-- =================== 资料文件提交 =================== -->
+<section id="view-feedback" hidden>
+<div class="sec">
+<h2>资料文件提交 <span class="en">Submit files</span></h2>
+<p>欢迎同学提交<b>补充资料文件</b>（PDF / Word / 图片 / 压缩包均可），或指出内容错误。请在文件或说明中注明<b>对应章节</b>，文件名建议为「章节_内容_姓名（可选）」。</p>
+<div class="note" id="contrib-setup" hidden><b>页面尚未配置提交入口：</b>把收集表链接填入代码中的 <code>CONTRIB_URL</code>，或把邮箱填入 <code>CONTRIB_MAIL</code> 即可启用。</div>
+<div class="fbbox">
+  <button class="actbtn primary" id="contrib-open" style="display:none">📎 打开文件提交页面 →</button>
+  <button class="actbtn" id="contrib-mail" style="display:none">✉️ 用邮件发送</button>
+  <button class="actbtn" id="contrib-copy">📋 复制提交说明</button>
+</div>
+<p id="contrib-tip" style="font-size:12.5px;color:var(--faint);margin-top:8px"></p>
+</div>
+</section>
+
+</main>
+<footer>《木材切削》复习系统 · 内容据课件照片 OCR 整理，以教材为准 · 本页数据仅保存在浏览器本地</footer>
+
+<script>
+"use strict";
+/* ================= 题库 =================
+  类型：tf 判断 | mc 单选 | bl 填空 | es 简答/名词解释
+========================================= */
+var BANK = [
+/* ---- 判断题 ---- */
+{t:'tf',ch:'第1章',q:'切削三要素是机床、刀具、工件。',a:true,exp:'机床提供动力和运动并夹持刀具与工件；刀具是切削工具；工件是加工对象，三者构成三角形关系。'},
+{t:'tf',ch:'第1章',q:'主运动是从工件上切除切屑、形成新表面所需要的最基本运动。',a:true,exp:'主运动是切削运动的基础，进给运动只是不断把新的切削层送入切削。'},
+{t:'tf',ch:'第1章',q:'切削速度常用主运动速度来表示。',a:true,exp:'主运动速度远大于进给速度，常用主运动速度的大小和方向代表切削运动速度。'},
+{t:'tf',ch:'第1章',q:'前角 γ 是在正交平面（法向剖面）内度量的前刀面与基面间的夹角。',a:true,exp:'后角 α 在同一平面内度量刀齿后面与切削平面的夹角。'},
+{t:'tf',ch:'第1章',q:'γ + α + β = 90°，且 δ = α + β。',a:true,exp:'楔角 β 是前后刀面夹角；切削角 δ 是前刀面与切削平面的夹角，δ+γ=90°。'},
+{t:'tf',ch:'第1章',q:'实际切削中的工作角度与标注角度完全相同。',a:false,exp:'因进给运动、安装高度、磨损等影响，工作角度会改变；工作后角 αw = α − αm，αm = arctan(U/V)。'},
+{t:'tf',ch:'第1章',q:'主运动为回转运动时，切削厚度 a = Uz·sinθ，θ 为运动遇角。',a:true,exp:'直线主运动时切削厚度为常数；回转运动时随运动遇角变化。'},
+{t:'tf',ch:'第1章',q:'切削面积等于切削厚度与切削宽度之积，A = a·b。',a:true,exp:'回转运动时切削面积随切削厚度变化而变化。'},
+{t:'tf',ch:'第1章',q:'二维切削即直角自由切削，切屑在横向无变形。',a:true,exp:'仅一个垂直于切削速度方向的刀刃参与切削；三维切削则刀刃有倾斜角，切屑横向有变形。'},
+{t:'tf',ch:'第1章',q:'纵向切削 [90-0] 是刀刃与纤维垂直、切削速度平行于纤维方向的切削。',a:true,exp:'横向 [0-90]：刀刃平行纤维、速度垂直纤维；端向 [90-90]：刀刃与速度均垂直纤维。'},
+{t:'tf',ch:'第1章',q:'纤维倾角 0~90° 为顺纹切削，90~180° 为逆纹切削。',a:true,exp:'纤维交角为 90° 时则为横向切削。'},
+{t:'tf',ch:'第1章',q:'高速切削的切削速度一般为 40~70 m/s，最高可达 120 m/s。',a:true,exp:'刀轴转速 3000~12000 r/min，最高 24000 r/min；温度约 500℃。'},
+{t:'tf',ch:'第1章',q:'木材强度低、易变形，所以刀具楔角越大越有利于切屑与工件分离。',a:false,exp:'恰恰相反：楔角小、刀具锐利，才利于切屑与工件分离。'},
+{t:'tf',ch:'第2章',q:'顺纹切削超前劈裂小，加工面光洁；逆纹切削超前劈裂大，加工面粗糙。',a:true,exp:'这是判断切削方向对表面质量影响的经典结论。'},
+{t:'tf',ch:'第2章',q:'流线型切屑（纵Ⅱ型）切削力稳定、切削质量好，但功耗大、刀刃磨损快。',a:true,exp:'条件为纵向切削且切削角、切削深度较小；切屑连续带状。'},
+{t:'tf',ch:'第2章',q:'撕裂型切屑（端Ⅱ型）切削质量差、切屑无规则、切削力变化较大。',a:true,exp:'条件：刃口不锐利的端向切削或逆纹纵向切削，切削角与深度较大。'},
+{t:'tf',ch:'第2章',q:'切削表面粗糙度只能用肉眼判断，不能用仪器测量。',a:false,exp:'表面粗糙度常用粗糙度仪测量；实际生产中多用肉眼判定整体质量。'},
+{t:'tf',ch:'第2章',q:'改进横向切削质量可采取蒸煮木材、刃前加压尺、加大刃倾角等措施。',a:true,exp:'蒸煮软化增韧减少开裂；压尺防超前开裂并挤水；加大刃倾角改为纵横向切削。'},
+{t:'tf',ch:'第3章',q:'主切削力 Fyx 通常为正值，与切削角 δ 大小无关。',a:true,exp:'法向力 Fyy 的正负则随 δ 与刃口锐钝变化；Fyy=0 时对应临界切削角。'},
+{t:'tf',ch:'第3章',q:'斜刃切削时法向力与轴向力大约各为主切削力的 1/3。',a:true,exp:'Fyx 远大于 Fyy 与 Fyz。'},
+{t:'tf',ch:'第3章',q:'切削阻力是切削力的反作用力，容易测得，是评价材料切削性能的基础。',a:true,exp:'影响因素分工件性质、刀具参数、切削条件三组。'},
+{t:'tf',ch:'第3章',q:'木材含水率降低时，切削阻力会持续单调增加。',a:false,exp:'纤维饱和点后随含水率降低阻力增加，约 10% 时达最大；低于 10% 变化不明显或略降。'},
+{t:'tf',ch:'第3章',q:'随温度升高，木材切削阻力呈下降趋势。',a:true,exp:'温度升高木材软化，切削力下降（但木材易热分解灼烧）。'},
+{t:'tf',ch:'第3章',q:'刃倾角在 0~60° 内增大时，端向切削水平分力基本不变，纵向切削阻力降低。',a:true,exp:'横向切削则先降后升。'},
+{t:'tf',ch:'第4章',q:'纵锯齿 δ<90° 时先切底后裂壁；δ>90° 时先切壁后切底。',a:true,exp:'主刃端向切削形成锯路底，侧刃横向切削形成锯路壁。'},
+{t:'tf',ch:'第4章',q:'横锯齿进给方向垂直于纤维平面，常用 δ>90° 的斜磨拨料锯。',a:true,exp:'沿纤维平面剪切破坏，剪应力超过顺纹抗剪极限。'},
+{t:'tf',ch:'第4章',q:'横锯切削时侧刃担负主要切削任务。',a:true,exp:'侧刃作近于端向切削，主刃作横端向切削。'},
+{t:'tf',ch:'第4章',q:'曲背齿抗弯强度高，适宜粗加工和大带锯剖料。',a:true,exp:'凹背齿齿尖锐利、排屑好但强度低，适宜锯切较软木材。'},
+{t:'tf',ch:'第4章',q:'带锯条齿底圆弧半径一般取 R = 0.15t。',a:true,exp:'防止齿底应力集中损坏；齿室容积等于或略大于齿体体积。'},
+{t:'tf',ch:'第4章',q:'带锯条六项应力叠加后，有齿边比锯背张得更紧。',a:false,exp:'叠加后有齿边反而不如锯背张得紧，对锯切不利，因此需要适张处理。'},
+{t:'tf',ch:'第4章',q:'适张处理最常用、最经济、最行之有效的方法是辊压锯身。',a:true,exp:'辊压在锯身内引入预应力，使锯齿侧获得适当张紧度。'},
+{t:'tf',ch:'第4章',q:'三种辊压方法中以辊弯势和圆势联合法最好。',a:true,exp:'中部和背部同时重压，锯齿侧适张应力最小；张紧后达到“齿紧、腰松、背弓”。'},
+{t:'tf',ch:'第8章',q:'正常磨损以后刀面磨损为主，刃口钝圆半径逐渐增大。',a:true,exp:'异常磨损包括刀尖折断、崩刃、塑性变形、卷刃、掉齿等。'},
+{t:'tf',ch:'第8章',q:'端向切削比纵向、横向切削更易使刃口变钝。',a:true,exp:'端向切削冲击与摩擦更剧烈；此外三聚氰胺对刃口磨损最严重。'},
+{t:'tf',ch:'第8章',q:'切削速度、进给速度、切削深度增大都会降低刀具耐用度。',a:true,exp:'被切削材料性质、内含物、pH、砂硅含量等也影响耐用度。'},
+{t:'tf',ch:'补充',q:'磨削时每个磨粒的切削刃很规则、在磨具表面分布均匀。',a:false,exp:'磨粒切削刃极不规则、分布很不规则，切削量不均匀；磨削温度高、能量大。'},
+
+/* ---- 单项选择题 ---- */
+{t:'mc',ch:'第1章',q:'下列不属于切削三要素的是：',opts:['机床','刀具','工件','夹具'],a:3,exp:'切削三要素是机床 Machine、刀具 Tools、工件 Workpiece；夹具不是要素。'},
+{t:'mc',ch:'第1章',q:'主运动为回转运动时，切削速度公式为：',opts:['v = πDn','v = πDn / (6×10⁴)','v = Dn / 60','v = 2πDn'],a:1,exp:'D—刀具或锯轮直径 mm；n—转速 r/min；结果单位 m/s。'},
+{t:'mc',ch:'第1章',q:'切削厚度 a 的计算式为：',opts:['a = Uz·cosθ','a = Uz·sinθ','a = Un·sinθ','a = b·sinθ'],a:1,exp:'θ 为运动遇角，即切削速度与进给速度间的夹角；直线主运动时 a 为常数。'},
+{t:'mc',ch:'第1章',q:'关于刀具角度，下列关系正确的是：',opts:['δ = α + β','δ = γ + β','β = α + γ','γ = α + β'],a:0,exp:'γ+α+β=90°，δ=α+β，δ+γ=90°。'},
+{t:'mc',ch:'第1章',q:'工作后角 αw 等于：',opts:['α + αm','α − αm','α − β','γ − αm'],a:1,exp:'αm = arctan(U/V)，因进给运动使切削平面旋转 αm。'},
+{t:'mc',ch:'第1章',q:'二维切削是指：',opts:['两根刀刃同时切削','直角自由切削','斜刃切削','端向切削'],a:1,exp:'仅一个垂直于切削速度方向的刀刃参与切削，切屑在横向无变形。'},
+{t:'mc',ch:'第1章',q:'纵向切削的方向代号是：',opts:['[0-90]','[90-0]','[90-90]','[0-0]'],a:1,exp:'纵向 [90-0]：刀刃垂直纤维、速度平行纤维。'},
+{t:'mc',ch:'第1章',q:'横向切削的定义是：',opts:['刀刃与纤维垂直、速度平行纤维','刀刃与纤维平行、速度垂直纤维','刀刃与速度均垂直纤维','刀刃与速度均平行纤维'],a:1,exp:'即 [0-90]；端向为 [90-90]。'},
+{t:'mc',ch:'第1章',q:'高速切削的最高切削速度可达：',opts:['70 m/s','90 m/s','120 m/s','150 m/s'],a:2,exp:'常用 40~70 m/s，最高 120 m/s；刀轴转速最高 24000 r/min。'},
+{t:'mc',ch:'第1章',q:'木材切削时刀刃温度可达：',opts:['100℃ 左右','300℃ 左右','500℃ 左右（甚至 1000℃ 以上）','800℃ 以下'],a:2,exp:'切屑和已加工面也接近刀刃温度；切削力随温度升高而降低。'},
+{t:'mc',ch:'第1章',q:'顺纹切削对应的纤维倾角范围是：',opts:['0~45°','0~90°','90~180°','45~90°'],a:1,exp:'90~180° 为逆纹切削；纤维交角 90° 为横向切削。'},
+{t:'mc',ch:'第2章',q:'光滑螺旋型切屑属于：',opts:['纵Ⅰ型（折断型）','纵Ⅱ型（流线型）','纵Ⅲ型（压缩型）','端Ⅰ型（剪切型）'],a:1,exp:'条件：纵向切削、切削角与切削深度较小。'},
+{t:'mc',ch:'第2章',q:'剪切型切屑对应：',opts:['纵Ⅱ型','横Ⅰ型','端Ⅰ型','端Ⅱ型'],a:2,exp:'端Ⅰ型；条件：纤维倾角较大的顺纹切削（纵-端向切削）。'},
+{t:'mc',ch:'第2章',q:'撕裂型切屑对应：',opts:['端Ⅰ型','端Ⅱ型','纵Ⅲ型','横Ⅲ型'],a:1,exp:'端Ⅱ型；质量差、力变化大，多出现于刃口钝的端向切削或逆纹纵向切削。'},
+{t:'mc',ch:'第3章',q:'木材切削阻力大约在含水率为多少时达到最大值？',opts:['5%','10%','20%','纤维饱和点'],a:1,exp:'FSP 后随含水率降低阻力增加，约 10% 时最大；低于 10% 变化不明显或略降。'},
+{t:'mc',ch:'第3章',q:'随树种密度增大，切削阻力增加最明显的切削方向是：',opts:['纵向','横向','端向','三个方向相同'],a:2,exp:'密度与切削阻力近似线性关系，端向增加更明显。'},
+{t:'mc',ch:'第4章',q:'带锯条齿底圆弧半径一般取：',opts:['R = 0.05t','R = 0.1t','R = 0.15t','R = 0.3t'],a:2,exp:'防止齿底应力集中损坏；齿室容积等于或略大于齿体体积。'},
+{t:'mc',ch:'第4章',q:'辊压后锯条张紧应达到的状态是：',opts:['齿松、腰紧、背弓','齿紧、腰松、背弓','齿紧、腰紧、背平','齿松、腰松、背平'],a:1,exp:'辊压后锯背或中部长度比锯齿侧大，张紧后齿紧、腰松、背弓。'},
+{t:'mc',ch:'第4章',q:'适宜粗加工和大带锯剖料的带锯齿形是：',opts:['直背齿','曲背齿','凹背齿','截背齿'],a:1,exp:'曲背齿抗弯强度高但锐度小、排屑不易；凹背齿适宜软材。'},
+{t:'mc',ch:'第8章',q:'正常磨损主要发生在：',opts:['前刀面','后刀面','侧面','齿底'],a:1,exp:'正常磨损以后刀面为主，磨损量大于前刀面，刃口呈圆弧形、钝圆半径增大。'},
+{t:'mc',ch:'第8章',q:'对刃口磨损最严重的胶种是：',opts:['脲醛树脂','酚醛树脂','三聚氰胺','白乳胶'],a:2,exp:'三聚氰胺对刃口磨损最严重；砂质、硅含量提高也会降低耐用度。'},
+{t:'mc',ch:'第4章',q:'带锯条受力不包括下列哪一项？',opts:['张紧应力','弯曲应力','热应力','扭转应力'],a:3,exp:'六项为：张紧、弯曲、切削、锯轮前倾、热、离心应力。'},
+{t:'mc',ch:'补充',q:'关于磨削加工特点，说法错误的是：',opts:['磨粒切削刃极不规则','磨粒分布均匀、切削量均匀','磨削表面温度很高','磨削所需切削能量大'],a:1,exp:'磨粒分布很不规则、切削量很不均匀。'},
+
+/* ---- 填空题 ---- */
+{t:'bl',ch:'第1章',q:'切削三要素：机床、刀具、____。',slots:[['工件','workpiece']],exp:'三者构成三角形关系。'},
+{t:'bl',ch:'第1章',q:'切削用量三要素：切削速度、进给量、____（切削深度）。',slots:[['背吃刀量','背吃刀','切削深度','as','h']],exp:'背吃刀量 as 即待加工表面与已加工表面间的距离。'},
+{t:'bl',ch:'第1章',q:'四个基本角度满足 γ + α + β = ____°。',slots:[['90','90°']],exp:'且 δ=α+β，δ+γ=90°。'},
+{t:'bl',ch:'第1章',q:'切削角 δ = ____ + ____。',slots:[['α','alpha','后角'],['β','beta','楔角']],exp:'δ=α+β；也可写切削角=后角+楔角。'},
+{t:'bl',ch:'第1章',q:'回转主运动时切削厚度 a = Uz·sin(____)，该角称运动遇角。',slots:[['θ','theta','运动遇角']],exp:'θ 为切削速度与进给速度间的夹角。'},
+{t:'bl',ch:'第1章',q:'切削面积 A = ____。',slots:[['a·b','a*b','ab','a×b']],exp:'切削厚度×切削宽度。'},
+{t:'bl',ch:'第1章',q:'三种基本切削方向：纵向[90-0]、横向[0-90]、端向[____]。',slots:[['90-90','90—90']],exp:'刀刃和切削速度均与纤维方向垂直。'},
+{t:'bl',ch:'第4章',q:'带锯条齿底圆弧半径 R = ____t。',slots:[['0.15','0.15t']],exp:'一般 R=0.15t，防止齿底应力集中。'},
+{t:'bl',ch:'第4章',q:'辊压后锯条达到“齿紧、____、背弓”的效果。',slots:[['腰松']],exp:'辊压使锯背或锯条中部长度大于锯齿侧。'},
+{t:'bl',ch:'第8章',q:'正常磨损以____刀面为主。',slots:[['后']],exp:'后刀面磨损量大于前刀面，刃口钝圆半径增大。'},
+{t:'bl',ch:'第8章',q:'对刃口磨损最严重的胶种是____。',slots:[['三聚氰胺','melamine']],exp:'砂质、硅含量提高也会降低耐用度。'},
+{t:'bl',ch:'第4章',q:'带锯条六项应力：张紧应力、弯曲应力、切削应力、锯轮前倾应力、____、离心应力。',slots:[['热应力','热']],exp:'六项叠加后有齿边反而不如锯背拉得紧。'},
+
+/* ---- 简答 / 名词解释 ---- */
+{t:'es',ch:'第1章',q:'简述切削与木材切削的定义。',exp:'切削：刀具相对工件按预定轨迹运动，切除一部分工件材料或使之分离，使加工部位或工件获得一定精度之尺寸、形状、表面质量。木材切削：借助刀具，按预定的表面，切开工件上木材之间的联系，从而获得符合要求尺寸、形状和表面粗糙度的制品。'},
+{t:'es',ch:'第1章',q:'简述主运动与切削运动。',exp:'主运动：从工件上切除切屑、形成新表面所需的最基本运动。切削运动：主运动与进给运动同时进行时产生的相对运动，V\'=V+U（矢量和）；主运动速度远大于进给速度，常用主运动速度代表切削运动速度。'},
+{t:'es',ch:'第1章',q:'切削用量三要素是什么？其大小有何意义？',exp:'切削速度 V（常以主运动速度表示）、进给量 f（每齿或每转）、背吃刀量 as（切削深度 h）。大小表明切削强度高低，影响生产率、加工质量、动力消耗和刀具磨损；机床设计必须首先确定切削用量，任何切削作业都必须先设定切削用量。'},
+{t:'es',ch:'第1章',q:'写出四个基本角度的定义与关系式。',exp:'前角 γ：法向剖面内前刀面与基面的夹角；后角 α：法向剖面内刀齿后面与切削平面的夹角；楔角 β：前、后刀面夹角；切削角 δ：前刀面与切削平面夹角。γ+α+β=90°，δ=α+β，δ+γ=90°。'},
+{t:'es',ch:'第1章',q:'工作角度与标注角度有何不同？',exp:'实际切削中因切削运动、安装高度、磨损等，刀具角度会改变。因进给运动，相对运动速度与主运动间夹角 αm=arctan(U/V)，切削平面旋转 αm，工作后角 αw=α−αm。αm 常远小于 1°，通常用标注后角代替；仅当主运动与进给速度相差较小时才需考虑工作角度。'},
+{t:'es',ch:'第1章',q:'什么是切削层与切削厚度？写出回转运动时的公式。',exp:'切削层：刀具沿进给方向每移动一个每齿（或每转、每双行程）进给量后，一个刀齿正切削的木材层。切削厚度 a：相邻两切削轨迹间的垂直距离。直线主运动时为常数；回转运动时 a=Uz·sinθ，θ 为运动遇角。'},
+{t:'es',ch:'第1章',q:'二维切削与三维切削有何区别？',exp:'二维切削即直角自由切削：仅一个垂直于切削速度方向的刀刃参与切削，刀刃与切削方向垂直，切屑在横向无变形。三维切削：刀刃与切削方向存在倾斜角，切屑在垂直于切削方向上存在变形。'},
+{t:'es',ch:'第1章',q:'写出纵向、横向、端向切削的定义与代号（可画图说明）。',exp:'纵向切削[90-0]：刀刃与纤维方向垂直，切削速度平行于纤维方向；横向切削[0-90]：刀刃与纤维方向平行，切削速度垂直于纤维方向；端向切削[90-90]：刀刃和切削速度均与纤维方向垂直。'},
+{t:'es',ch:'第1章',q:'解释纤维倾角、纤维交角、年轮接触角。',exp:'纤维倾角（动力遇角）φ：平行于切削方向且垂直于切削平面的平面内，切削方向与纤维方向的夹角；纤维交角：切削平面内切削方向与纤维方向的夹角；年轮接触角：垂直于切削方向和切削平面的平面内，切削平面与年轮切线间的夹角。'},
+{t:'es',ch:'第1章',q:'木材切削有哪些特点？影响切削的木材特性有哪些？',exp:'木材各向异性、不均匀、强度低；易变形、压缩、开裂、起毛；不耐热，易焦化炭化。影响切削的木材特性：含水率、密度、强度、组织结构、切削方向、温度。'},
+{t:'es',ch:'第1章',q:'高速切削有何特点？为什么木材切削刀具楔角小？',exp:'高速切削 v=40~70 m/s（最高 120 m/s），刀轴转速最高 24000 r/min；温度高（500℃ 左右）、噪声大需降噪、回转部件需静动平衡、机床抗振性要好、刀具材料与结构需适应。楔角小：木材强度低、易变形，分离木材所需力占比大，楔角小、刃口锐利利于切屑与工件分离。'},
+{t:'es',ch:'第2章',q:'简述流线型切屑（纵Ⅱ型）的条件、过程与特点。',exp:'条件：纵向切削时切削角和切削深度较小。过程：刀具切入时 Fy 较小、切削层薄、无劈裂，切削层在前刀面推挤下连续剪切破坏，生成连续带状屑片。特点：①切削力稳定无明显周期；②切屑连续带状、质量好；③功耗大、刀刃磨损快。'},
+{t:'es',ch:'第2章',q:'简述剪切型切屑（端Ⅰ型）的条件与过程。',exp:'条件：纤维倾角较大时的顺纹切削（纵-端向切削）。过程：刃口切入木材，前刀面木材被压缩，受平行于纤维方向的剪切力发生剪切滑移；随刃口前移，压缩-剪切滑移保持一定间隔断续发生。特点：切屑较连续、切削力均匀、质量较高。'},
+{t:'es',ch:'第2章',q:'简述撕裂型切屑（端Ⅱ型）的条件、过程、特点，并说明顺逆纹对表面质量的影响。',exp:'条件：刃口不锐利的端向切削，或逆纹纵向切削，切削角与切削深度较大。过程：刃口给纤维横向拉力使木材沿纤维开裂，同时前刀面压缩切削层使其弯曲或剪切破坏。特点：质量差、切屑无规则、切削力变化大。超前劈裂：顺纹小→光洁；逆纹大→粗糙。'},
+{t:'es',ch:'第2章',q:'切削表面缺陷产生的原因有哪些？表面质量如何评价？',exp:'原因：①加工机械与刀具设计不合理；②机械刀具调整不当、参数不合理、磨损；③材料纹理结构、材质不均。评价：良好面百分率、缺陷种类及频率、表面粗糙度（粗糙度仪）、实际生产多用肉眼判定。'},
+{t:'es',ch:'第2章',q:'改进横向切削质量的措施有哪些？',exp:'①蒸煮木材：软化并增加韧性，减少开裂；②刃前加压尺：防止超前开裂并挤出一部分水分（减少干燥时间和动力消耗）；③加大刃倾角：改横向切削为纵横向切削。'},
+{t:'es',ch:'第2章',q:'什么是尺寸精度与形位精度？影响因素有哪些？',exp:'尺寸精度：实际加工尺寸与预定目标尺寸的符合程度；形位精度：实际形状、位置与预定目标形位的符合程度。影响因素：①加工机械精度（调整、结构、振动）；②刀具性能（材质、刚度、磨损、刃口缺损）；③加工参数（刀具参数、切削参数）；④木材材性（切削性质、密度、内应力、力学性能）。'},
+{t:'es',ch:'第2章',q:'切削热对刀具有何影响？刀具温度与工件面温度受哪些因素影响？',exp:'后果：刃口升温加速磨损；刀体温度不均使刀具丧失稳定性；已加工面炭化焦化。热传导：接触摩擦生热→齿尖升温并向刀体传导→向环境辐射散热。刀具温度影响因素：刀具材料（导热、表面粗糙度、种类质地）、刀具参数（切削角、后角、刃圆半径）、切削参数（速度、厚度）、切削方式、周围环境。工件面温度：刀刃可达 500℃ 甚至 1000℃ 以上；温度随切削速度升高；切削力随温度升高而降低，木材易热分解灼烧。'},
+{t:'es',ch:'第3章',q:'什么是切削力、切削阻力？切削阻力受哪些因素影响？',exp:'切削力：对被切削工件而言，是将切削层木材从工件上分离并排出所需的作用力；切削阻力：对刀具而言，是切削力的反作用力，容易测得，是评价材料切削性能的基础。影响因素：①工件性质（树种、密度、含水率、温度、力学性能）；②刀具参数（切削角、后角、刃倾角）；③切削条件（切削深度、切削方向、切削速度）。'},
+{t:'es',ch:'第3章',q:'密度、含水率、温度如何影响切削阻力？',exp:'密度：随密度增大阻力近似线性增加，端向增加更明显。含水率：FSP 后随含水率降低阻力增加，约 10% 时最大，低于 10% 变化不明显或略降。温度：随温度升高阻力呈下降趋势。力学强度越高阻力越大。'},
+{t:'es',ch:'第3章',q:'什么是临界切削角？斜刃切削时三个分力的关系如何？',exp:'法向力 Fyy=0 时的切削角称为临界切削角。主切削力 Fyx 通常为正值、与 δ 无关；Fyy 正负随 δ 与刃口锐钝变化。斜刃切削（λ≠0）多一个横向分力 Fyz；Fyx 比 Fyy、Fyz 大得多，后两者约为主切削力的 1/3。'},
+{t:'es',ch:'第3章',q:'刃倾角对切削阻力有何影响？',exp:'随刃倾角增大，工作前角增加、前刀面倾斜使切屑横向变形、相对刀刃的纤维排列方向变化。0~60° 范围内：端向切削水平分力基本不变（略降）；纵向切削阻力降低；横向切削先降后升。'},
+{t:'es',ch:'第4章',q:'简述纵锯齿的切削过程（三刃口如何工作）。',exp:'纵锯进给方向平行于纤维。主刃先作端向切削，切断锯路底的纤维；随主刃切入，前齿面使切断的木材剪切破坏；侧刃作横向切削清理锯路壁；锯屑暂存齿室，锯齿离开木材时排出。每行程完成三个切削面：锯路底+两侧锯路壁。δ<90° 先切底后裂壁；δ>90° 先切壁后切底。'},
+{t:'es',ch:'第4章',q:'简述横锯齿的切削过程，并说明各刃口的作用。',exp:'进给方向垂直于纤维平面，选用 δ>90° 的斜磨拨料锯。锯齿如小刀在表面切出刀痕，相邻锯齿先后切出两条平行刀痕；前齿面合力在垂直锯路方向的分力 F3 挤压两侧已切开木材，使其沿锯路底顺纤维方向剪切破坏（超过顺纹抗剪极限）形成锯屑。侧刃作近于端向切削、担负主要任务；主刃作横端向切削。'},
+{t:'es',ch:'第4章',q:'锯齿如何分类？主要尺寸、角度与锯料参数有哪些？',exp:'按相对纤维方向：纵剖齿、横截齿；按刃磨方式：直磨齿、斜磨齿。尺寸：齿距 t、齿高 h；角度：前角 γ、后角 α、楔角 β；锯料：锯料宽 B、锯料角 λ。纵剖直磨齿为正前角，横截斜磨齿为负前角。'},
+{t:'es',ch:'第4章',q:'带锯条的六种应力是什么？叠加后有何结论？',exp:'①张紧应力 σ₁=F/[(B−h)s]；②弯曲应力 σw=Es/[(1−μ²)D]；③切削应力（锯齿侧压、锯背拉，一般 12/14 MPa，重载 15/18）；④锯轮前倾应力（约 5 MPa）；⑤热应力 σt=Eα/(ti−t)；⑥离心应力 σc=ρv²/g。叠加后有齿边反而不如锯背张得紧，对锯切不利，因此需辊压适张引入预应力。'},
+{t:'es',ch:'第4章',q:'带锯条为什么会跑锯？如何解决？',exp:'关键：锯齿侧锯身部分要张得足够紧。原因：①锯齿部分抵抗进给力能力比锯身中部弱；②锯齿部分发热伸长大，张紧力降低；③应力叠加后锯齿侧松弛、锯背应力大。解决：①增大张紧力（受抗拉强度限制）；②加厚锯齿部分（制造使用有问题）；③使锯条预先获得适张度（辊压锯身）。'},
+{t:'es',ch:'第4章',q:'三种辊压适张方法各有什么特点？哪种最好？',exp:'①辊弯势法：最大辊压力在锯背，锯背塑性变形最大，但锯齿部分预张应力仍不足以补偿；②辊圆势法：锯身中部重压，张紧后两侧应力大于中部，锯齿部分仍不足；③辊弯势+圆势法（最好）：中部和背部同时重压，锯齿侧适张应力最小，张紧后锯齿部分张紧应力足够大。辊压后达到“齿紧、腰松、背弓”。'},
+{t:'es',ch:'第8章',q:'刀具磨损如何分类？正常磨损有哪些特点？',exp:'分类：异常磨损（刀尖折断、崩刃、刃部塑性变形、卷刃、掉齿，属不合格产品）；正常磨损（切削部分材料逐渐损耗，微观几何形状变化）。正常磨损特点：①前后刀面同时磨损，前刀面可能出现月牙洼；②以后刀面磨损为主，磨损量大于前刀面，刃口呈圆弧形、钝圆半径逐渐增大。'},
+{t:'es',ch:'第8章',q:'刀具磨损的原因有哪些？',exp:'机械磨损（材料迁移、擦伤）；热磨损（成分扩散变劣、粘结磨损、热应力龟裂、热疲劳、塑性变形钝化）；化学磨损（与木材成分反应，硬质合金高温氧化生成疏松氧化物被带走）；电化学磨损；电腐蚀磨损（电火花放电，适当施加负电荷可减小）。'},
+{t:'es',ch:'第8章',q:'影响刀具耐用度的因素有哪些？',exp:'被切削材料：端向切削比纵、横向更易钝刃；内含物、pH 明显影响；三聚氰胺磨损最严重；砂质、硅含量提高使耐用度下降。加工条件：切削速度 V↑、进给速度 Vf↑、切削深度 as↑ → 耐用度下降。'},
+{t:'es',ch:'第8章',q:'常用刀具耐磨损技术有哪些？',exp:'①表面热处理（淬火+回火）；②表面渗碳、渗氮、渗硼；③表面镀铬（保护刀体、降低摩擦系数）；④热喷涂（金属、合金、金属陶瓷、氧化物、碳化物）；⑤涂层技术（CVD、PVD、PECVD 镀涂 TiN、TiC 等，适用于硬质合金刀齿）。'},
+{t:'es',ch:'补充',q:'磨削加工有哪些特点？',exp:'①每个磨粒切削刃极不规则；②磨粒在磨具表面分布很不规则，切削量很不均匀；③磨削表面发热、温度很高；④磨削所需切削能量大。'},
+/* ---- 手写笔记补充：判断 ---- */
+{t:'tf',ch:'手写补充',q:'车削时工件旋转、刀具不动；铣削时刀具旋转、工件一般不动。',a:true,exp:'主运动与进给运动同时进行：车削、铣削、钻削；交替进行：刨切、刮削。'},
+{t:'tf',ch:'手写补充',q:'主运动与进给运动只能同时进行，不能交替进行。',a:false,exp:'刨切、刮削（刨床）是交替进行的典型。'},
+{t:'tf',ch:'手写补充',q:'切削力由分离力、变形力和摩擦力组成。',a:true,exp:'切削力 = 分离力 + 变形力 + 摩擦力。'},
+{t:'tf',ch:'手写补充',q:'切削中的摩擦力只发生在前面与切屑、后刀面与已加工表面两处。',a:true,exp:'摩擦只发生在这两处接触面。'},
+{t:'tf',ch:'手写补充',q:'顺铣遇硬工件时水平分力变大，切削难以完成；逆铣用于切削硬材料。',a:true,exp:'顺铣/逆铣的选用要点。'},
+{t:'tf',ch:'手写补充',q:'完全铣削是指刀具完全进入工件。',a:true,exp:'不完全铣削则刀具未完全进入工件。'},
+{t:'tf',ch:'手写补充',q:'切削深度越小，越容易形成流线型切屑。',a:true,exp:'切削角大、深度大→折断型；反之→流线型。'},
+{t:'tf',ch:'手写补充',q:'临界切削角约为 50°；50~60° 时切削力急增，30~40° 时切削阻力相对较小。',a:true,exp:'手写笔记补充的关键数值。'},
+{t:'tf',ch:'手写补充',q:'纵剖齿为直磨齿，横截齿为斜磨齿。',a:true,exp:'纵剖直磨（正前角），横截斜磨（负前角）。'},
+{t:'tf',ch:'手写补充',q:'锯料宽大于锯身宽，是因为木材有弹性，锯切后会回弹夹锯。',a:true,exp:'锯料宽的设置依据。'},
+{t:'tf',ch:'手写补充',q:'楔角小适合切软木，楔角大适合切硬木。',a:true,exp:'楔角选择的经验规律。'},
+{t:'tf',ch:'手写补充',q:'大带锯用拨料，小带锯用压料。',a:false,exp:'应为大带锯用压料、小带锯用拨料。'},
+{t:'tf',ch:'手写补充',q:'干材比湿材好切削，因为湿材排屑困难且切削后易干缩变形。',a:true,exp:'手写笔记速记。'},
+{t:'tf',ch:'手写补充',q:'纤维倾角 λ ≤ 45° 时翘曲小、加工稳定性好。',a:true,exp:'手写笔记速记。'},
+{t:'tf',ch:'手写补充',q:'钻头的主切削刃先于副切削刃切割。',a:false,exp:'应为副切割刃先于主刃切割。'},
+{t:'tf',ch:'手写补充',q:'变屑切削圆锯片的核心目的是减少切屑堵塞，结构上的空洞还可提高散热。',a:true,exp:'手写笔记锯切补充。'},
+/* ---- 手写笔记补充：单选 ---- */
+{t:'mc',ch:'手写补充',q:'铣削切削厚度的计算公式是：',opts:['a = Ux·sinθ','a = Ux·√(h/D)','a = Uz·√(D/h)','a = b·sinφ'],a:1,exp:'h 为切削深度，D 为铣削直径；切削面积 A=b·Ux·sinφ。'},
+{t:'mc',ch:'手写补充',q:'铣削切削面积的计算公式是：',opts:['A = a·b','A = b·Ux·sinφ','A = Ux·h','A = πDn'],a:1,exp:'与车/刨的 A=a·b 不同，铣削含运动遇角 φ。'},
+{t:'mc',ch:'手写补充',q:'提高铣削加工表面质量可采取：',opts:['增大进给速度','减小铣刀转速','增加铣刀齿数','减小刀具楔角'],a:2,exp:'减小进给速度、增加铣刀转速和齿数。'},
+{t:'mc',ch:'手写补充',q:'平刨床上前工作台与后工作台的高度差等于：',opts:['进给量','切削深度','切削宽度','齿距'],a:1,exp:'平刨床调整要点。'},
+{t:'mc',ch:'手写补充',q:'临界切削角约为：',opts:['30°','40°','50°','60°'],a:2,exp:'约 50°；50~60° 切削力急增。'},
+{t:'mc',ch:'手写补充',q:'带锯条锯身的报废标准是宽度磨损至原宽度的：',opts:['1/5~1/4','1/4~1/3','1/3~1/2','1/2~2/3'],a:2,exp:'宽度磨损至原宽 1/3~1/2 时报废。'},
+{t:'mc',ch:'手写补充',q:'关于锯料方式，正确的是：',opts:['大带锯拨料、小带锯压料','大带锯压料、小带锯拨料','都采用拨料','都采用压料'],a:1,exp:'大带锯用压料，小带锯用拨料。'},
+{t:'mc',ch:'手写补充',q:'铣削加工中常见的表面缺陷是：',opts:['波浪式刀痕','月牙洼','超前劈裂','烧焦'],a:0,exp:'波浪式刀痕是铣削常见缺陷；月牙洼是前刀面磨损。'},
+/* ---- 手写笔记补充：填空 ---- */
+{t:'bl',ch:'手写补充',q:'切削力 = 分离力 + ____ + 摩擦力。',slots:[['变形力']],exp:'摩擦力只发生在前刀面与后刀面两处。'},
+{t:'bl',ch:'手写补充',q:'铣削切削厚度 a = Ux·√(____/D)，D 为铣削直径。',slots:[['h','切削深度']],exp:'h 为切削深度。'},
+{t:'bl',ch:'手写补充',q:'临界切削角约为 ____°。',slots:[['50','50°']],exp:'50~60° 时切削力急增。'},
+{t:'bl',ch:'手写补充',q:'带锯条锯身宽度磨损至原宽度的 ____ 时报废。',slots:[['1/3~1/2','1/3-1/2','三分之一到二分之一']],exp:'锯身报废标准。'},
+{t:'bl',ch:'手写补充',q:'纤维倾角 λ ≤ ____° 时翘曲小、加工稳定性好。',slots:[['45','45°']],exp:'手写笔记速记。'},
+/* ---- 手写笔记补充：简答 ---- */
+{t:'es',ch:'手写补充',q:'主运动与进给运动的配合方式有哪些？举例说明。',exp:'交替进行：刨切、刮削（刨床）；同时进行：车削、铣削、钻削。车削工件旋转、刀不动；铣削刀具旋转、工件一般不动。主运动速度远大于进给速度。'},
+{t:'es',ch:'手写补充',q:'切削力由哪些力组成？摩擦力发生在哪两处？',exp:'切削力=分离力+变形力+摩擦力。摩擦力只发生在前面（切屑流过）与后刀面（与已加工表面）两处。'},
+{t:'es',ch:'手写补充',q:'顺铣与逆铣有何区别？如何选用？',exp:'顺铣：遇硬工件时水平分力变大，切削无法完成；逆铣：用于切削硬材料。'},
+{t:'es',ch:'手写补充',q:'切屑形态随切削深度和纤维倾角如何变化？',exp:'深度越小越易流线型；切削角大、深度大→折断型，反之流线型。纤维倾角 0°→流线型；增大到某范围→剪切型；继续增大→撕裂型；180°附近又回到折断型。'},
+{t:'es',ch:'手写补充',q:'切削表面差的原因有哪些？',exp:'①切削力大、纤维方向变化剧烈；②逆纹切削；③刃圆半径过大；④温度过高。'},
+{t:'es',ch:'手写补充',q:'简述锯切补充要点（锯料宽、齿腹、锯身报废、楔角选择、锯料方式）。',exp:'锯料宽>锯身宽（木材回弹夹锯）；齿腹做弧形避免齿底压应力过大；锯身宽度磨损至原宽 1/3~1/2 报废；楔角小切软木、大切硬木；大带锯压料、小带锯拨料。'},
+{t:'es',ch:'手写补充',q:'为什么干材比湿材好切削？',exp:'①湿材排屑困难；②湿材切削后干缩变形。'}
+];
+
+/* ================= 刷题逻辑 ================= */
+var PROG_KEY='wc_prog_v1';
+var prog={};
+try{ prog=JSON.parse(localStorage.getItem(PROG_KEY))||{}; }catch(e){ prog={}; }
+function saveProg(){ try{ localStorage.setItem(PROG_KEY, JSON.stringify(prog)); }catch(e){} }
+function norm(s){ return String(s==null?'':s).replace(/\s+/g,'').replace(/[°℃（）()]/g,'').toLowerCase(); }
+function numEq(x,y){ var a=parseFloat(x),b=parseFloat(y); return !isNaN(a)&&!isNaN(b)&&Math.abs(a-b)<1e-9; }
+function slotOk(v,alts){ var n=norm(v); if(!n) return false; return alts.some(function(a){ return norm(a)===n||numEq(n,a); }); }
+
+var filter='全部';
+var order=[];
+var answered={};   /* 本次会话：题号 -> 'right'|'wrong'|'seen' */
+var objTotal=0, objRight=0;
+
+function chapters(){ var set={}; BANK.forEach(function(q){ set[q.ch]=1; }); return Object.keys(set); }
+function buildOrder(){ order=BANK.map(function(_,i){return i;}); }
+function shuffled(){ var a=order.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+
+function typeName(t){ return {tf:'判断',mc:'单选',bl:'填空',es:'简答'}[t]||t; }
+
+function updateScore(){
+  objTotal=0; objRight=0; var term=0;
+  BANK.forEach(function(q,i){
+    if(q.t!=='es'){ objTotal++; if(answered[i]==='right') objRight++; }
+    if(prog[i]==='mem') term++;
+  });
+  document.getElementById('sc-obj').textContent=objRight;
+  document.getElementById('sc-obj-total').textContent=objTotal;
+  document.getElementById('sc-term').textContent=term;
+  document.getElementById('sc-term-total').textContent=BANK.length;
+}
+
+function renderChips(){
+  var box=document.getElementById('chips');
+  box.innerHTML='';
+  var all=['全部'].concat(chapters());
+  all.forEach(function(c){
+    var b=document.createElement('button');
+    b.textContent=c; if(c===filter) b.className='on';
+    b.onclick=function(){ filter=c; renderChips(); renderQuiz(); };
+    box.appendChild(b);
+  });
+}
+
+function markBtns(i,wrap){
+  var row=document.createElement('div'); row.className='qbtns';
+  [['mem','🧠 记住了'],['vague','😐 模糊'],['lost','😵 不会']].forEach(function(m){
+    var b=document.createElement('button'); b.className='qaction '+(m[0]==='mem'?'mem':m[0]==='vague'?'vague':'lost');
+    b.textContent=m[1];
+    if(prog[i]===m[0]) b.classList.add('on');
+    b.onclick=function(){ prog[i]=m[0]; saveProg(); updateScore(); renderQuiz(); };
+    row.appendChild(b);
+  });
+  wrap.appendChild(row);
+}
+
+function showExp(card,text){
+  var d=document.createElement('div'); d.className='exp show'; d.innerHTML='<b>解析：</b>'+text;
+  card.appendChild(d);
+}
+
+function mkCard(i){
+  var q=BANK[i];
+  var card=document.createElement('div'); card.className='qcard';
+  var qt=document.createElement('div'); qt.className='qt'; qt.textContent=(i+1)+'. '+q.q; card.appendChild(qt);
+  var meta=document.createElement('div'); meta.className='qmeta';
+  meta.innerHTML='<span>'+q.ch+'</span><span>'+typeName(q.t)+'</span>';
+  card.appendChild(meta);
+
+  if(q.t==='tf'){
+    var row=document.createElement('div'); row.className='tfrow';
+    [[true,'✔ 对'],[false,'✘ 错']].forEach(function(p){
+      var b=document.createElement('button'); b.textContent=p[1];
+      b.onclick=function(){
+        if(answered[i]) return;
+        var ok=(p[0]===q.a); answered[i]=ok?'right':'wrong';
+        b.classList.add(ok?'right':'wrong');
+        if(!ok){ row.children[q.a?0:1].classList.add('right'); }
+        card.classList.add(ok?'right':'wrong');
+        showExp(card,q.exp); markBtns(i,card); updateScore();
+      };
+      row.appendChild(b);
+    });
+    card.appendChild(row);
+  }
+
+  if(q.t==='mc'){
+    var box=document.createElement('div'); box.className='opts';
+    q.opts.forEach(function(o,k){
+      var b=document.createElement('button'); b.textContent='ABCD'[k]+'. '+o;
+      b.onclick=function(){
+        if(answered[i]) return;
+        var ok=(k===q.a); answered[i]=ok?'right':'wrong';
+        b.classList.add(ok?'right':'wrong');
+        if(!ok) box.children[q.a].classList.add('right');
+        card.classList.add(ok?'right':'wrong');
+        showExp(card,q.exp); markBtns(i,card); updateScore();
+      };
+      box.appendChild(b);
+    });
+    card.appendChild(box);
+  }
+
+  if(q.t==='bl'){
+    var inputs=[];
+    q.slots.forEach(function(alts,k){
+      var row=document.createElement('div'); row.className='slotrow';
+      var lab=document.createElement('span'); lab.textContent='第 '+(k+1)+' 空：';
+      var inp=document.createElement('input'); inp.type='text'; inp.placeholder='输入答案';
+      row.appendChild(lab); row.appendChild(inp); card.appendChild(row); inputs.push(inp);
+    });
+    var btns=document.createElement('div'); btns.className='qbtns';
+    var sub=document.createElement('button'); sub.className='primary'; sub.textContent='提交答案';
+    sub.onclick=function(){
+      if(answered[i]) return;
+      var all=true;
+      q.slots.forEach(function(alts,k){
+        var ok=slotOk(inputs[k].value,alts);
+        inputs[k].style.borderColor=ok?'var(--green)':'var(--red)';
+        inputs[k].style.background=ok?'rgba(46,125,50,.08)':'rgba(178,58,46,.06)';
+        if(!ok) all=false;
+      });
+      answered[i]=all?'right':'wrong';
+      card.classList.add(all?'right':'wrong');
+      sub.disabled=true; sub.style.opacity=.5;
+      showExp(card,q.exp); markBtns(i,card); updateScore();
+    };
+    btns.appendChild(sub); card.appendChild(btns);
+  }
+
+  if(q.t==='es'){
+    var btns=document.createElement('div'); btns.className='qbtns';
+    var show=document.createElement('button'); show.className='primary'; show.textContent='查看参考答案';
+    show.onclick=function(){
+      if(!answered[i]){ answered[i]='seen'; updateScore(); }
+      ans.classList.add('show'); show.style.display='none'; markBtns(i,card);
+    };
+    btns.appendChild(show); card.appendChild(btns);
+    var ans=document.createElement('div'); ans.className='ansbox';
+    ans.innerHTML='<b>参考答案：</b>'+q.exp; card.appendChild(ans);
+  }
+
+  return card;
+}
+
+function renderQuiz(){
+  var list=document.getElementById('quiz-list');
+  list.innerHTML='';
+  order.forEach(function(i){
+    if(filter!=='全部' && BANK[i].ch!==filter) return;
+    list.appendChild(mkCard(i));
+  });
+  updateScore();
+}
+
+/* ================= 模拟考试 ================= */
+var EXAMS=[
+{name:'试卷一 · 基础卷（45 分钟）',time:45,groups:[
+ {title:'一、填空题（每空 3 分，共 15 分）',items:[
+   {t:'bl',q:'切削三要素是机床、刀具、____。',slots:[['工件','workpiece']],exp:'机床提供动力和运动，刀具是切削工具，工件是加工对象。'},
+   {t:'bl',q:'刀具角度满足 γ + α + β = ____°。',slots:[['90','90°']],exp:'且 δ=α+β。'},
+   {t:'bl',q:'回转主运动时切削厚度 a = Uz·sin(____)。',slots:[['θ','theta','运动遇角']],exp:'θ 为运动遇角。'},
+   {t:'bl',q:'端向切削的代号是 [____]。',slots:[['90-90','90—90']],exp:'纵向[90-0]、横向[0-90]、端向[90-90]。'},
+   {t:'bl',q:'带锯条齿底圆弧半径 R = ____t。',slots:[['0.15','0.15t']],exp:'一般 R=0.15t。'}
+ ]},
+ {title:'二、判断题（每题 3 分，共 18 分）',items:[
+   {t:'tf',q:'工作角度与标注角度完全相同。',a:false,exp:'工作角度受进给运动、安装高度、磨损影响。'},
+   {t:'tf',q:'二维切削即直角自由切削。',a:true,exp:'切屑在横向无变形。'},
+   {t:'tf',q:'顺纹切削超前劈裂小，加工面光洁。',a:true,exp:'逆纹切削劈裂大、表面粗糙。'},
+   {t:'tf',q:'流线型切屑切削力稳定、质量好，但功耗大、刀刃磨损快。',a:true,exp:'纵Ⅱ型切屑。'},
+   {t:'tf',q:'主切削力 Fyx 与切削角 δ 的大小无关。',a:true,exp:'通常为正值；Fyy 正负随 δ 变化。'},
+   {t:'tf',q:'三种辊压方法中以辊弯势法最好。',a:false,exp:'辊弯势+圆势联合法最好。'}
+ ]},
+ {title:'三、选择题（每题 3 分，共 18 分）',items:[
+   {t:'mc',q:'下列不属于切削三要素的是：',opts:['机床','刀具','工件','夹具'],a:3,exp:'三要素：机床、刀具、工件。'},
+   {t:'mc',q:'纵向切削的方向代号是：',opts:['[0-90]','[90-0]','[90-90]','[0-0]'],a:1,exp:'纵向 [90-0]。'},
+   {t:'mc',q:'高速切削的最高速度可达：',opts:['70 m/s','90 m/s','120 m/s','150 m/s'],a:2,exp:'常用 40~70 m/s，最高 120 m/s。'},
+   {t:'mc',q:'切削阻力约在含水率多少时最大？',opts:['5%','10%','20%','FSP'],a:1,exp:'约 10% 时最大。'},
+   {t:'mc',q:'适宜粗加工和大带锯剖料的齿形是：',opts:['直背齿','曲背齿','凹背齿','截背齿'],a:1,exp:'曲背齿抗弯强度高。'},
+   {t:'mc',q:'对刃口磨损最严重的胶种是：',opts:['脲醛树脂','酚醛树脂','三聚氰胺','白乳胶'],a:2,exp:'三聚氰胺磨损最严重。'}
+ ]},
+ {title:'四、简答题（每题 10 分，共 30 分）',items:[
+   {t:'es',q:'写出纵向、横向、端向切削的定义与代号（画图说明）。',exp:'纵向[90-0]：刀刃垂直纤维、速度平行纤维；横向[0-90]：刀刃平行纤维、速度垂直纤维；端向[90-90]：刀刃与速度均垂直纤维。'},
+   {t:'es',q:'简述流线型切屑（纵Ⅱ型）的条件、过程与特点。',exp:'条件：纵向切削、切削角与切削深度小；过程：Fy 小、无劈裂，连续剪切破坏成带状屑；特点：力稳定、质量好、功耗大、磨损快。'},
+   {t:'es',q:'改进横向切削质量有哪些措施？',exp:'①蒸煮软化增韧；②刃前加压尺防超前开裂并挤水；③加大刃倾角改横向为纵横向切削。'}
+ ]}
+]},
+{name:'试卷二 · 综合卷（60 分钟）',time:60,groups:[
+ {title:'一、名词解释（每题 5 分，共 20 分）',items:[
+   {t:'es',q:'切削阻力',exp:'切削力的反作用力，作用在刀具上；容易测得，是评价材料切削性能的基础。'},
+   {t:'es',q:'临界切削角',exp:'法向力 Fyy = 0 时的切削角。'},
+   {t:'es',q:'适张度（辊压）',exp:'通过辊压锯身引入预应力，使锯齿侧预先获得适当张紧度；辊压是辊子压力下锯身产生弹性与塑性变形的过程。'},
+   {t:'es',q:'正常磨损',exp:'刀具切削部分材料逐渐损耗、微观几何形状变化；以后刀面磨损为主，刃口钝圆半径逐渐增大。'}
+ ]},
+ {title:'二、判断题（每题 3 分，共 18 分）',items:[
+   {t:'tf',q:'含水率降低时切削阻力持续单调增加。',a:false,exp:'约 10% 时最大，低于 10% 变化不明显或略降。'},
+   {t:'tf',q:'刃倾角 0~60° 内增大时，端向切削水平分力基本不变。',a:true,exp:'纵向阻力降低，横向先降后升。'},
+   {t:'tf',q:'横锯齿进给方向垂直于纤维平面，常用 δ>90° 的斜磨拨料锯。',a:true,exp:'沿纤维平面剪切破坏。'},
+   {t:'tf',q:'带锯条六项应力叠加后有齿边比锯背张得更紧。',a:false,exp:'有齿边反而不如锯背紧。'},
+   {t:'tf',q:'正常磨损以后刀面磨损为主。',a:true,exp:'后刀面磨损量大于前刀面。'},
+   {t:'tf',q:'磨削时磨粒分布均匀、切削量均匀。',a:false,exp:'磨粒分布很不规则，切削量很不均匀。'}
+ ]},
+ {title:'三、选择题（每题 3 分，共 18 分）',items:[
+   {t:'mc',q:'δ、γ、α、β 的关系正确的是：',opts:['δ = α + β','δ = γ + β','β = α + γ','γ = α + β'],a:0,exp:'δ=α+β，且 γ+α+β=90°。'},
+   {t:'mc',q:'工作后角 αw 等于：',opts:['α + αm','α − αm','α − β','γ − αm'],a:1,exp:'αm=arctan(U/V)。'},
+   {t:'mc',q:'撕裂型切屑对应：',opts:['端Ⅰ型','端Ⅱ型','纵Ⅲ型','横Ⅲ型'],a:1,exp:'端Ⅱ型，质量差、力变化大。'},
+   {t:'mc',q:'随密度增大，切削阻力增加最明显的方向是：',opts:['纵向','横向','端向','相同'],a:2,exp:'端向增加更明显。'},
+   {t:'mc',q:'带锯条齿底圆弧半径一般取：',opts:['R=0.05t','R=0.1t','R=0.15t','R=0.3t'],a:2,exp:'防止齿底应力集中。'},
+   {t:'mc',q:'带锯条受力不包括：',opts:['张紧应力','弯曲应力','热应力','扭转应力'],a:3,exp:'六项：张紧、弯曲、切削、锯轮前倾、热、离心。'}
+ ]},
+ {title:'四、简答题（每题 11 分，共 44 分）',items:[
+   {t:'es',q:'带锯条为什么会跑锯？如何解决？',exp:'原因：锯齿侧抵抗进给力弱；发热伸长使张紧力降低；叠加后锯齿侧松弛。解决：增大张紧力（受抗拉限制）；加厚锯齿部分；辊压适张。'},
+   {t:'es',q:'简述带锯条六种应力，并说明适张处理的必要性。',exp:'张紧、弯曲、切削、锯轮前倾、热、离心；叠加后有齿边不如锯背紧，需辊压引入预应力。'},
+   {t:'es',q:'简述纵锯齿的切削过程。',exp:'主刃端向切底→前齿面剪切→侧刃清壁→锯屑存齿室排出；δ<90°先底后壁，δ>90°先壁后底。'},
+   {t:'es',q:'影响刀具耐用度的因素有哪些？',exp:'端向最易钝；内含物/pH 影响；三聚氰胺最严重；砂硅含量高耐用度低；V、Vf、as 增大耐用度下降。'}
+ ]}
+]}
+];
+
+var examIdx=0, examState={}, examTimer=null, examLeft=0, examSubmitted=false;
+
+function renderExamTabs(){
+  var box=document.getElementById('exam-tabs'); box.innerHTML='';
+  EXAMS.forEach(function(e,k){
+    var b=document.createElement('button'); b.textContent=e.name;
+    if(k===examIdx) b.className='on';
+    b.onclick=function(){ if(examTimer){ if(!confirm('当前考试正在进行，切换试卷将放弃本次作答，确定？')) return; } examIdx=k; resetExam(); };
+    box.appendChild(b);
+  });
+}
+function resetExam(){
+  if(examTimer){ clearInterval(examTimer); examTimer=null; }
+  examSubmitted=false; examState={};
+  examLeft=EXAMS[examIdx].time*60;
+  document.getElementById('exam-timer').textContent=fmtTime(examLeft);
+  document.getElementById('exam-score').textContent='';
+  document.getElementById('exam-start').style.display='';
+  document.getElementById('exam-submit').style.display='';
+  renderExamBody();
+}
+function fmtTime(s){ var m=Math.floor(s/60), r=s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; }
+
+function renderExamBody(){
+  var body=document.getElementById('exam-body'); body.innerHTML='';
+  var ex=EXAMS[examIdx];
+  ex.groups.forEach(function(g,gi){
+    var gd=document.createElement('div'); gd.className='examgroup';
+    var h=document.createElement('h3'); h.textContent=g.title; gd.appendChild(h);
+    g.items.forEach(function(item,ii){
+      var key=gi+'-'+ii;
+      var card=document.createElement('div'); card.className='examitem';
+      var qt=document.createElement('div'); qt.className='qt'; qt.textContent=(ii+1)+'. '+item.q; card.appendChild(qt);
+      if(item.t==='tf'){
+        var row=document.createElement('div'); row.className='tfrow';
+        [[true,'✔ 对'],[false,'✘ 错']].forEach(function(p){
+          var b=document.createElement('button'); b.textContent=p[1];
+          b.onclick=function(){ if(examSubmitted) return; examState[key]=p[0];
+            row.querySelectorAll('button').forEach(function(x){x.classList.remove('sel');});
+            b.classList.add('sel'); };
+          row.appendChild(b);
+        });
+        card.appendChild(row);
+      }
+      if(item.t==='mc'){
+        var box=document.createElement('div'); box.className='opts';
+        item.opts.forEach(function(o,k){
+          var b=document.createElement('button'); b.textContent='ABCD'[k]+'. '+o;
+          b.onclick=function(){ if(examSubmitted) return; examState[key]=k;
+            box.querySelectorAll('button').forEach(function(x){x.classList.remove('sel');});
+            b.classList.add('sel'); };
+          box.appendChild(b);
+        });
+        card.appendChild(box);
+      }
+      if(item.t==='bl'){
+        var inp=document.createElement('input'); inp.type='text'; inp.placeholder='输入答案';
+        inp.oninput=function(){ if(!examSubmitted) examState[key]=inp.value; };
+        card.appendChild(inp);
+      }
+      if(item.t==='es'){
+        var ans=document.createElement('div'); ans.className='ansbox';
+        ans.innerHTML='<b>参考答案：</b>'+item.exp; card.appendChild(ans);
+      }
+      gd.appendChild(card);
+    });
+    body.appendChild(gd);
+  });
+}
+
+function startExam(){
+  if(examTimer) return;
+  examSubmitted=false;
+  examLeft=EXAMS[examIdx].time*60;
+  document.getElementById('exam-timer').textContent=fmtTime(examLeft);
+  examTimer=setInterval(function(){
+    examLeft--; document.getElementById('exam-timer').textContent=fmtTime(Math.max(0,examLeft));
+    if(examLeft<=0){ clearInterval(examTimer); examTimer=null; submitExam(true); }
+  },1000);
+}
+
+function submitExam(auto){
+  if(examSubmitted){ if(!auto) alert('已经交过卷了。'); return; }
+  if(!auto && !confirm('确定交卷？交卷后不能修改答案。')) return;
+  examSubmitted=true;
+  if(examTimer){ clearInterval(examTimer); examTimer=null; }
+  document.getElementById('exam-timer').textContent=auto?'00:00':document.getElementById('exam-timer').textContent;
+  var ex=EXAMS[examIdx], ok=0, total=0;
+  Array.prototype.forEach.call(document.querySelectorAll('#exam-body .examgroup'),function(gd,gi){
+    var g=ex.groups[gi]; if(!g) return;
+    Array.prototype.forEach.call(gd.querySelectorAll('.examitem'),function(card,ii){
+      var item=g.items[ii]; if(!item) return;
+      var key=gi+'-'+ii, val=examState[key];
+      if(item.t==='tf'){
+        total++;
+        var btns=card.querySelectorAll('.tfrow button');
+        var correct=item.a?0:1;
+        var chosen=val===true?0:val===false?1:-1;
+        if(chosen===correct){ ok++; btns[correct].classList.add('right'); }
+        else { if(chosen>=0) btns[chosen].classList.add('wrong'); btns[correct].classList.add('right'); }
+      }
+      if(item.t==='mc'){
+        total++;
+        var bs=card.querySelectorAll('.opts button');
+        if(val===item.a){ ok++; bs[item.a].classList.add('right'); }
+        else { if(typeof val==='number') bs[val].classList.add('wrong'); bs[item.a].classList.add('right'); }
+      }
+      if(item.t==='bl'){
+        total++;
+        var inp=card.querySelector('input');
+        var good=item.slots.every(function(alts,k){ return slotOk((val||'').split('|')[k]||'',alts); });
+        if(good){ inp.style.borderColor='var(--green)'; inp.style.background='rgba(46,125,50,.08)'; ok++; }
+        else { inp.style.borderColor='var(--red)'; }
+        var ab=card.querySelector('.ansbox');
+        if(!ab){ ab=document.createElement('div'); ab.className='ansbox'; card.appendChild(ab); }
+        ab.innerHTML='<b>参考答案：</b>'+item.slots.map(function(a){return a[0];}).join('；');
+        ab.classList.add('show');
+      }
+      if(item.t==='es'){
+        var ab2=card.querySelector('.ansbox'); if(ab2) ab2.classList.add('show');
+      }
+    });
+  });
+  var out='客观题得分：'+ok+'/'+total+' 题';
+  document.getElementById('exam-score').textContent=out;
+  document.getElementById('exam-start').style.display='none';
+  document.getElementById('exam-submit').style.display='none';
+}
+
+/* ================= 资料文件提交 =================
+   配置：把收集链接/邮箱填到下面两行即可启用对应按钮。
+   推荐：腾讯文档收集表（文件上传题）或网盘「收集文件」链接。
+================================================= */
+var CONTRIB_URL='https://docs.qq.com/form/page/DYVVncGtqdVpvRUtX';   /* 腾讯文档 · 学习资料收集 */
+var CONTRIB_MAIL='';  /* 例如：yourname@qq.com */
+(function(){
+  var open=document.getElementById('contrib-open'),
+      mail=document.getElementById('contrib-mail'),
+      copy=document.getElementById('contrib-copy'),
+      tip=document.getElementById('contrib-tip'),
+      setup=document.getElementById('contrib-setup');
+  if(!open) return;
+  if(CONTRIB_URL){
+    open.style.display='';
+    open.onclick=function(){ window.open(CONTRIB_URL,'_blank'); };
+  }
+  if(CONTRIB_MAIL){
+    mail.style.display='';
+    mail.onclick=function(){
+      var sub=encodeURIComponent('木材切削复习资料补充');
+      var body=encodeURIComponent('对应章节：\n内容说明：\n\n（请把资料文件作为附件添加后发送）');
+      location.href='mailto:'+CONTRIB_MAIL+'?subject='+sub+'&body='+body;
+    };
+  }
+  if(!CONTRIB_URL && !CONTRIB_MAIL && setup){ setup.hidden=false; }
+  copy.onclick=function(){
+    var target=CONTRIB_MAIL||CONTRIB_URL||'（请见班级群通知）';
+    var txt='【木材切削复习资料提交】\n对应章节：\n内容说明：\n文件命名：章节_内容_姓名（可选）\n提交到：'+target;
+    function done(){ tip.textContent='✅ 已复制提交说明，可粘贴到班级群。'; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done,function(){ tip.textContent='复制失败，请手动复制。'; });
+    } else {
+      tip.textContent='请手动复制提交说明。';
+    }
+  };
+  if(CONTRIB_URL){ tip.textContent='提交后文件进入收集表，我会定期整理并补进复习资料。'; }
+  else if(CONTRIB_MAIL){ tip.textContent='邮件发送时请记得添加附件。'; }
+})();
+
+/* ================= 视图切换 ================= */
+function switchView(v){
+  ['review','quiz','exam','feedback','thanks'].forEach(function(k){
+    var sec=document.getElementById('view-'+k); if(!sec) return;
+    sec.hidden=(k!==v);
+  });
+  document.querySelectorAll('header nav button').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-view')===v);
+  });
+  if(v==='quiz' && !document.getElementById('quiz-list').childElementCount){ renderChips(); renderQuiz(); }
+  if(v==='exam' && !document.getElementById('exam-body').childElementCount){
+    renderExamTabs(); resetExam();
+  }
+}
+
+/* ================= 初始化 ================= */
+document.querySelectorAll('header nav button').forEach(function(b){
+  b.addEventListener('click',function(){ switchView(b.getAttribute('data-view')); });
+});
+buildOrder();
+updateScore();
+document.getElementById('btn-shuffle').addEventListener('click',function(){
+  order=shuffled(); answered={}; renderQuiz();
+  document.getElementById('view-quiz').scrollIntoView();
+});
+document.getElementById('btn-reset').addEventListener('click',function(){
+  if(confirm('清空全部答题记录与卡片掌握进度？')){
+    prog={}; answered={}; saveProg(); renderQuiz();
+  }
+});
+document.getElementById('exam-start').addEventListener('click',startExam);
+document.getElementById('exam-submit').addEventListener('click',function(){ submitExam(false); });
+/* 填空题多空分隔符提示：答案用 | 分隔多个空 */
+</script>
+</body>
+</html>
